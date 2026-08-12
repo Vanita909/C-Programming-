@@ -1,0 +1,90 @@
+select * from Employee where post='Salesmam' and emp_name like 'k%';
+
+no rows selected
+
+SQL> select * from Employee where post='Salesman'and emp_name like 'k%';
+
+no rows selected
+
+SQL> select * from Employee where post='salesman'and emp_name like 'k%';
+
+no rows selected
+
+SQL> desc Employee;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ EMP_ID                                                         NUMBER(5)
+ EMP_NAME                                                       VARCHAR2(20)
+ POST                                                           VARCHAR2(10)
+ MER_ID                                                         NUMBER(5)
+ HIRE_DATE                                                      DATE
+ SALARY                                                         NUMBER(5)
+ COMMISSION                                                     NUMBER(4)
+ DEPT_ID                                                        NUMBER(2)
+
+SQL> select * from Employee;
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID    
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------    
+     12345 Bansi padia          clerk                 18-NOV-90      15000                    10    
+     13254 Radha Sharma         Salesman        12345 25-NOV-90      12000       4000         20    
+     12675 Tanmay Domadiya      President             05-JUL-85      12400                    10    
+     13457 Suraj prakash        Salesman        12345 12-AUG-92      14650       1700         30    
+     14567 Seema Lava           Programmer      13654 17-JUL-94      35000                    10    
+     16754 Krupa Vala           Programmer      13654 13-AUG-92      30000                    10    
+     14562 Kalpana Joshi        clerk                 17-SEP-90      17000                    40    
+     12435 Kevel Raval          Salesman        12345 17-OCT-90      18000       6500         20    
+     13654 Parth Vasoya         Analyst         12675 27-DEC-95      90000                    10    
+     18654 Ramesh Vasoya        Analyst         12675 15-MAY-93      85000                    10    
+
+10 rows selected.
+
+SQL> select * from Employee where post='Salesman' and EMP_NAME like 'k%';
+
+no rows selected
+
+SQL> select * from Employee where post='Salesman' and EMP_NAME like 'K%';
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID    
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------    
+     12435 Kevel Raval          Salesman        12345 17-OCT-90      18000       6500         20    
+
+SQL> select emp_name from Employee where post='Clerk';
+
+no rows selected
+
+SQL> select emp_name from Employee where post='clerk';
+
+EMP_NAME                                                                                            
+--------------------                                                                                
+Bansi padia                                                                                         
+Kalpana Joshi                                                                                       
+
+SQL> SELECT *
+  2  FROM Employee
+  3  WHERE Salary BETWEEN 20000 AND 90000;
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID    
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------    
+     14567 Seema Lava           Programmer      13654 17-JUL-94      35000                    10    
+     16754 Krupa Vala           Programmer      13654 13-AUG-92      30000                    10    
+     13654 Parth Vasoya         Analyst         12675 27-DEC-95      90000                    10    
+     18654 Ramesh Vasoya        Analyst         12675 15-MAY-93      85000                    10    
+
+SQL> SELECT *
+  2  FROM Employee
+  3  WHERE Salary >= 20000
+  4    AND Salary <= 90000;
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID    
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------    
+     14567 Seema Lava           Programmer      13654 17-JUL-94      35000                    10    
+     16754 Krupa Vala           Programmer      13654 13-AUG-92      30000                    10    
+     13654 Parth Vasoya         Analyst         12675 27-DEC-95      90000                    10    
+     18654 Ramesh Vasoya        Analyst         12675 15-MAY-93      85000                    10    
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 

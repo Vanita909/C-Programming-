@@ -1,0 +1,60 @@
+create table Department(Dept_no number(5), depart_name varchar(20),location varchar(15));
+create table Department(Dept_no number(5), depart_name varchar(20),location varchar(15))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> desc Department;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ DEPT_NO                                                        NUMBER(5)
+ DEPART_NAME                                                    VARCHAR2(20)
+ LOCATION                                                       VARCHAR2(15)
+
+SQL> insert into Department values(10,'IT','Anand');
+
+1 row created.
+
+SQL>  insert into Department values(20,'Sales','Bombay');
+
+1 row created.
+
+SQL> insert into Department values(30,'Purchase','Surat');
+
+1 row created.
+
+SQL> insert into Department values(40,'Finance','Anand');
+
+1 row created.
+
+SQL> insert into Department values(50,'Marketing','Surat');
+
+1 row created.
+
+SQL> desc department;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ DEPT_NO                                                        NUMBER(5)
+ DEPART_NAME                                                    VARCHAR2(20)
+ LOCATION                                                       VARCHAR2(15)
+
+SQL> select * from Department;
+
+   DEPT_NO DEPART_NAME          LOCATION                                                            
+---------- -------------------- ---------------                                                     
+        10 IT                   Anand                                                               
+        20 Sales                Bombay                                                              
+        30 Purchase             Surat                                                               
+        40 Finance              Anand                                                               
+        50 Marketing            Surat                                                               
+
+SQL> select * from Employee where post='Salesman';
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID    
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------    
+     13254 Radha Sharma         Salesman        12345 25-NOV-90      12000       4000         20    
+     13457 Suraj prakash        Salesman        12345 12-AUG-92      14650       1700         30    
+     12435 Kevel Raval          Salesman        12345 17-OCT-90      18000       6500         20    
+
+SQL> 

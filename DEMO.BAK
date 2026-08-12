@@ -1,0 +1,10 @@
+#include<iostream.h>
+#include<stdio.h>
+#include<conio.h>
+void main()
+{
+	int a=5;
+	clrscr();
+	cout<<a++<<" "<<++a + a++<<" "<<++a;
+	getch();
+}

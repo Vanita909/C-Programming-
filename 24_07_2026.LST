@@ -1,0 +1,142 @@
+select * d_election
+  2   select * d_election;
+select * d_election
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL>  select * d_election;
+ select * d_election
+          *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select * from d_election
+  2  select * from d_election
+  3  ;
+select * from d_election
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL>  select * from d_election;
+
+no rows selected
+
+SQL> desc d_election;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ E_ID                                      NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(25)
+ AGE                                                NUMBER(38)
+ C_ID                                      NOT NULL NUMBER(38)
+
+SQL> desc college;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(38)
+ NAME                                      NOT NULL VARCHAR2(25)
+ CITY                                               VARCHAR2(20)
+
+SQL> select e_id,name,name from join college on d_election.c_id=college.id;
+select e_id,name,name from join college on d_election.c_id=college.id
+                                        *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> 
+SQL> select d_election.e_id,d_election.name,college.name from join college on d_election.c_id=college.id;
+select d_election.e_id,d_election.name,college.name from join college on d_election.c_id=college.id
+                                                                      *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select d_election.e_id,d_election.name,college.name from join college on d_election.c_id=college.id;
+select d_election.e_id,d_election.name,college.name from join college on d_election.c_id=college.id
+                                                                      *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select d_election.e_id,d_election.name,college.name from d_election join college on d_election.c_id=college.id;
+
+no rows selected
+
+SQL> select * from d_election;
+
+no rows selected
+
+SQL> select * from college;
+
+no rows selected
+
+SQL> insert into college(id,name,city) values(1,'geetanjalicollege','rajkot');
+
+1 row created.
+
+SQL> insert into college(id,name,city) values(2,'h.n.shuklacollege','rajkot');
+
+1 row created.
+
+SQL> insert into college(id,name,city) values(3,'rkcollege','rajkot');
+
+1 row created.
+
+SQL> 
+SQL> commit;
+
+Commit complete.
+
+SQL>  insert into d_election(e_id,name,age,c_id) values(1,'nvyaa',20,1);
+
+1 row created.
+
+SQL> insert into d_election(e_id,name,age,c_id) values(2,'dev',19,1);
+
+1 row created.
+
+SQL>   insert into d_election(e_id,name,age,c_id) values(3,'virat',21,3);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select d_election.e_id,d_election.name,college.name from d_election join college on d_election.c_id=college.id;
+
+      E_ID NAME                      NAME                                       
+---------- ------------------------- -------------------------                  
+         1 nvyaa                     geetanjalicollege                          
+         2 dev                       geetanjalicollege                          
+         3 virat                     rkcollege                                  
+
+SQL> select d_election.e_id,d_election.name,college.name,college.city where(city='rajkot') from d_election join college on d_election.c_id=college.id;
+select d_election.e_id,d_election.name,college.name,college.city where(city='rajkot') from d_election join college on d_election.c_id=college.id
+                                                                 *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select d_election.e_id,d_election.name,college.name,college.city from d_election join college on d_election.c_id=college.id;
+
+      E_ID NAME                      NAME                                       
+---------- ------------------------- -------------------------                  
+CITY                                                                            
+--------------------                                                            
+         1 nvyaa                     geetanjalicollege                          
+rajkot                                                                          
+                                                                                
+         2 dev                       geetanjalicollege                          
+rajkot                                                                          
+                                                                                
+         3 virat                     rkcollege                                  
+rajkot                                                                          
+                                                                                
+
+SQL> 

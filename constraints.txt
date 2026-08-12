@@ -1,0 +1,172 @@
+alter table Employee ADD constraint emp_id UNIQUE(emp_id);
+
+Table altered.
+
+SQL> insert into Employee values(12345,'Bansi Padia','Clear',null,to_date('1990-11-18','yyyy-mm-dd'),15000,null,10);
+insert into Employee values(12345,'Bansi Padia','Clear',null,to_date('1990-11-18','yyyy-mm-dd'),15000,null,10)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.EMP_ID) violated 
+
+
+SQL> alter tabel Employee ADD constraint emp_id NOT NULL(emp_id);
+alter tabel Employee ADD constraint emp_id NOT NULL(emp_id)
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command 
+
+
+SQL> alter table Employee MODIFY(emp_id NOT NULL);
+
+Table altered.
+
+SQL> desc Employee;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ EMP_ID                                                NOT NULL NUMBER(5)
+ EMP_NAME                                                       VARCHAR2(20)
+ POST                                                           VARCHAR2(10)
+ MER_ID                                                         NUMBER(5)
+ HIRE_DATE                                                      DATE
+ SALARY                                                         NUMBER(5)
+ COMMISSION                                                     NUMBER(4)
+ DEPT_ID                                                        NUMBER(2)
+
+SQL> insert into Employee values(10875,'Bansi Padia','Clear',null,to_date('1990-11-18','yyyy-mm-dd'),15000,null,10);
+
+1 row created.
+
+SQL> select * from Employee;
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID    
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------    
+     12345 Bansi padia          clerk                 18-NOV-90      15000                    10    
+     13254 Radha Sharma         Salesman        12345 25-NOV-90      12000       4000         20    
+     12675 Tanmay Domadiya      President             05-JUL-85      12400                    10    
+     13457 Suraj prakash        Salesman        12345 12-AUG-92      14650       1700         30    
+     14567 Seema Lava           Programmer      13654 17-JUL-94      35000                    10    
+     16754 Krupa Vala           Programmer      13654 13-AUG-92      30000                    10    
+     14562 Kalpana Joshi        clerk                 17-SEP-90      17000                    40    
+     12435 Kevel Raval          Salesman        12345 17-OCT-90      18000       6500         20    
+     13654 Parth Vasoya         Analyst         12675 27-DEC-95      90000                    10    
+     18654 Ramesh Vasoya        Analyst         12675 15-MAY-93      85000                    10    
+     10875 Bansi Padia          Clear                 18-NOV-90      15000                    10    
+
+11 rows selected.
+
+SQL> alter table Employee consraint emp_name_pk PRIMARY KEY(emp_name);
+alter table Employee consraint emp_name_pk PRIMARY KEY(emp_name)
+                     *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL>  alter table Employee ADD  consraint emp_name_pk PRIMARY KEY(emp_name);
+ alter table Employee ADD  consraint emp_name_pk PRIMARY KEY(emp_name)
+                                                             *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table Employee ADD  consraint emp_name PRIMARY KEY(emp_name);
+alter table Employee ADD  consraint emp_name PRIMARY KEY(emp_name)
+                                                         *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table Employee ADD constraint emp_name PRIMARY KEY(emp_name);
+
+Table altered.
+
+SQL>  insert into Employee values(10875,'Bansi Padia','Clear',null,to_date('1990-11-18','yyyy-mm-dd'),15000,null,10);
+ insert into Employee values(10875,'Bansi Padia','Clear',null,to_date('1990-11-18','yyyy-mm-dd'),15000,null,10)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.EMP_ID) violated 
+
+
+SQL>  insert into Employee values(10875,'Vanita Vaghela','Clear',null,to_date('1990-11-18','yyyy-mm-dd'),15000,null,10);
+ insert into Employee values(10875,'Vanita Vaghela','Clear',null,to_date('1990-11-18','yyyy-mm-dd'),15000,null,10)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.EMP_ID) violated 
+
+
+SQL> insert into Employee values(10234,'Vanita Vaghela','Clear',null,to_date('1990-11-18','yyyy-mm-dd'),15000,null,10);
+
+1 row created.
+
+SQL> select * from Employee;
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID    
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------    
+     12345 Bansi padia          clerk                 18-NOV-90      15000                    10    
+     13254 Radha Sharma         Salesman        12345 25-NOV-90      12000       4000         20    
+     12675 Tanmay Domadiya      President             05-JUL-85      12400                    10    
+     13457 Suraj prakash        Salesman        12345 12-AUG-92      14650       1700         30    
+     14567 Seema Lava           Programmer      13654 17-JUL-94      35000                    10    
+     16754 Krupa Vala           Programmer      13654 13-AUG-92      30000                    10    
+     14562 Kalpana Joshi        clerk                 17-SEP-90      17000                    40    
+     12435 Kevel Raval          Salesman        12345 17-OCT-90      18000       6500         20    
+     13654 Parth Vasoya         Analyst         12675 27-DEC-95      90000                    10    
+     18654 Ramesh Vasoya        Analyst         12675 15-MAY-93      85000                    10    
+     10875 Bansi Padia          Clear                 18-NOV-90      15000                    10    
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID    
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------    
+     10234 Vanita Vaghela       Clear                 18-NOV-90      15000                    10    
+
+12 rows selected.
+
+SQL> set linesize 150;
+SQL> select * from Employee;
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID                                                      
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------                                                      
+     12345 Bansi padia          clerk                 18-NOV-90      15000                    10                                                      
+     13254 Radha Sharma         Salesman        12345 25-NOV-90      12000       4000         20                                                      
+     12675 Tanmay Domadiya      President             05-JUL-85      12400                    10                                                      
+     13457 Suraj prakash        Salesman        12345 12-AUG-92      14650       1700         30                                                      
+     14567 Seema Lava           Programmer      13654 17-JUL-94      35000                    10                                                      
+     16754 Krupa Vala           Programmer      13654 13-AUG-92      30000                    10                                                      
+     14562 Kalpana Joshi        clerk                 17-SEP-90      17000                    40                                                      
+     12435 Kevel Raval          Salesman        12345 17-OCT-90      18000       6500         20                                                      
+     13654 Parth Vasoya         Analyst         12675 27-DEC-95      90000                    10                                                      
+     18654 Ramesh Vasoya        Analyst         12675 15-MAY-93      85000                    10                                                      
+     10875 Bansi Padia          Clear                 18-NOV-90      15000                    10                                                      
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID                                                      
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------                                                      
+     10234 Vanita Vaghela       Clear                 18-NOV-90      15000                    10                                                      
+
+12 rows selected.
+
+SQL> set linesize 200;
+SQL> select * from Employee;
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID                                                                                                        
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------                                                                                                        
+     12345 Bansi padia          clerk                 18-NOV-90      15000                    10                                                                                                        
+     13254 Radha Sharma         Salesman        12345 25-NOV-90      12000       4000         20                                                                                                        
+     12675 Tanmay Domadiya      President             05-JUL-85      12400                    10                                                                                                        
+     13457 Suraj prakash        Salesman        12345 12-AUG-92      14650       1700         30                                                                                                        
+     14567 Seema Lava           Programmer      13654 17-JUL-94      35000                    10                                                                                                        
+     16754 Krupa Vala           Programmer      13654 13-AUG-92      30000                    10                                                                                                        
+     14562 Kalpana Joshi        clerk                 17-SEP-90      17000                    40                                                                                                        
+     12435 Kevel Raval          Salesman        12345 17-OCT-90      18000       6500         20                                                                                                        
+     13654 Parth Vasoya         Analyst         12675 27-DEC-95      90000                    10                                                                                                        
+     18654 Ramesh Vasoya        Analyst         12675 15-MAY-93      85000                    10                                                                                                        
+     10875 Bansi Padia          Clear                 18-NOV-90      15000                    10                                                                                                        
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID                                                                                                        
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------                                                                                                        
+     10234 Vanita Vaghela       Clear                 18-NOV-90      15000                    10                                                                                                        
+
+12 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 
