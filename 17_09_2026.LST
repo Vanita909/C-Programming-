@@ -1,0 +1,119 @@
+ select dept_no, count(emp_no)As total_employee, SUM(sal)As total_salary FROM emp GROUP BY dept_no ORDER BY dept_no;
+ select dept_no, count(emp_no)As total_employee, SUM(sal)As total_salary FROM emp GROUP BY dept_no ORDER BY dept_no
+                                                                                           *
+ERROR at line 1:
+ORA-00904: "DEPT_NO": invalid identifier 
+
+
+SQL> select dept no, count(emp_no)As total_employee, SUM(sal)As total_salary FROM emp GROUP BY dept no ORDER BY dept no;
+select dept no, count(emp_no)As total_employee, SUM(sal)As total_salary FROM emp GROUP BY dept no ORDER BY dept no
+                                                                                               *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT deptno,
+  2         COUNT(empno) AS total_employee,
+  3         SUM(sal) AS total_salary
+  4  FROM emp
+  5  GROUP BY deptno
+  6  ORDER BY deptno;
+
+    DEPTNO TOTAL_EMPLOYEE TOTAL_SALARY                                                                                                                
+---------- -------------- ------------                                                                                                                
+        10              3         8750                                                                                                                
+        20              5        10875                                                                                                                
+        30              6         9400                                                                                                                
+
+SQL> SELECT deptno, COUNT(empno) AS total_employee, SUM(sal) AS total_salary FROM emp HAVING SUM(sal)>9000;
+SELECT deptno, COUNT(empno) AS total_employee, SUM(sal) AS total_salary FROM emp HAVING SUM(sal)>9000
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> SELECT deptno, COUNT(empno) AS total_employee, SUM(sal) AS total_salary FROM emp GROUP BY deptno ORDER BY deptno;HAVING SUM(sal
+  2  )>9000;
+SELECT deptno, COUNT(empno) AS total_employee, SUM(sal) AS total_salary FROM emp GROUP BY deptno ORDER BY deptno;HAVING SUM(sal
+                                                                                                                *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL>  SELECT deptno, COUNT(empno) AS total_employee, SUM(sal) AS total_salary FROM emp GROUP BY deptno ORDER BY deptno HAVING SUM(sal)>9000;
+ SELECT deptno, COUNT(empno) AS total_employee, SUM(sal) AS total_salary FROM emp GROUP BY deptno ORDER BY deptno HAVING SUM(sal)>9000
+                                                                                                                  *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT deptno,
+  2         COUNT(empno) AS total_employee,
+  3         SUM(sal) AS total_salary
+  4  FROM emp
+  5  GROUP BY deptno
+  6  HAVING SUM(sal) > 9000
+  7  ORDER BY deptno;
+
+    DEPTNO TOTAL_EMPLOYEE TOTAL_SALARY                                                                                                                
+---------- -------------- ------------                                                                                                                
+        20              5        10875                                                                                                                
+        30              6         9400                                                                                                                
+
+SQL> select dept no, count(emp_no)As total_employee, SUM(sal)As total_salary FROM emp GROUP BY CUBERselect dept no, count(emp_no)As total_employee, SUM(sal)As total_salary FROM emp GROUP BY ;
+select dept no, count(emp_no)As total_employee, SUM(sal)As total_salary FROM emp GROUP BY CUBERselect dept no, count(emp_no)As total_employee, SUM(sal)As total_salary FROM emp GROUP BY 
+                                                                                                      *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select dept no, count(emp_no)As total_employee, SUM(sal)As total_salary FROM emp GROUP BY cube(deptno,sal);
+select dept no, count(emp_no)As total_employee, SUM(sal)As total_salary FROM emp GROUP BY cube(deptno,sal)
+                      *
+ERROR at line 1:
+ORA-00904: "EMP_NO": invalid identifier 
+
+
+SQL> select * from Employee;
+
+    EMP_ID EMP_NAME             POST           MER_ID HIRE_DATE     SALARY COMMISSION    DEPT_ID                                                      
+---------- -------------------- ---------- ---------- --------- ---------- ---------- ----------                                                      
+     12345 Bansi padia          clerk                 18-NOV-90      15000                    10                                                      
+     13254 Radha Sharma         Salesman        12345 25-NOV-90      12000       4000         20                                                      
+     12675 Tanmay Domadiya      President             05-JUL-85     124000                    10                                                      
+     13457 Suraj prakash        Salesman        12345 12-AUG-92      14650       1700         30                                                      
+     14567 Seema Lava           Programmer      13654 17-JUL-94      35000                    10                                                      
+     16754 Krupa Vala           Programmer      13654 13-AUG-92      30000                    10                                                      
+     14562 Kalpana Joshi        clerk                 17-SEP-90      17000                    40                                                      
+     12435 Kevel Raval          Salesman        12345 17-OCT-90      18000       6500         20                                                      
+     13654 Parth Vasoya         Analyst         12675 27-DEC-95      90000                    10                                                      
+     18654 Ramesh Vasoya        Analyst         12675 15-MAY-93      85000                    10                                                      
+
+10 rows selected.
+
+SQL> select * from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                 
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                 
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                 
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                 
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                 
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                 
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                 
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                 
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                 
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                 
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                 
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                 
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                 
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                 
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                 
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                 
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                 
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                 
+
+14 rows selected.
+
+SQL> .
+SQL> 
