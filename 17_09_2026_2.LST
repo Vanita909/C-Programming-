@@ -1,0 +1,177 @@
+SELECT deptno,
+  2         COUNT(empno) AS total_employee,
+  3         SUM(sal) AS total_salary
+  4  FROM emp
+  5  GROUP BY CUBE(deptno)
+  6  ORDER BY deptno;
+
+    DEPTNO TOTAL_EMPLOYEE TOTAL_SALARY                                                                                                                
+---------- -------------- ------------                                                                                                                
+        10              3         8750                                                                                                                
+        20              5        10875                                                                                                                
+        30              6         9400                                                                                                                
+                       14        29025                                                                                                                
+
+SQL> SELECT deptno,  COUNT(empno) AS total_employee, SUM(sal) AS total_salary FROM  empGROUP BY CUBE(deptno,sal)ORDER BY deptno;
+SELECT deptno,  COUNT(empno) AS total_employee, SUM(sal) AS total_salary FROM  empGROUP BY CUBE(deptno,sal)ORDER BY deptno
+                                                                                        *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT deptno,
+  2         COUNT(empno) AS total_employee,
+  3         SUM(sal) AS total_salary
+  4  FROM emp
+  5  GROUP BY ROLLUP(deptno)
+  6  ORDER BY deptno;
+
+    DEPTNO TOTAL_EMPLOYEE TOTAL_SALARY                                                                                                                
+---------- -------------- ------------                                                                                                                
+        10              3         8750                                                                                                                
+        20              5        10875                                                                                                                
+        30              6         9400                                                                                                                
+                       14        29025                                                                                                                
+
+SQL> SELECT deptno, job, SUM(sal) AS total_salary
+  2  FROM emp
+  3  GROUP BY CUBE(deptno, job) order by deptno;
+
+    DEPTNO JOB       TOTAL_SALARY                                                                                                                     
+---------- --------- ------------                                                                                                                     
+        10 CLERK             1300                                                                                                                     
+        10 MANAGER           2450                                                                                                                     
+        10 PRESIDENT         5000                                                                                                                     
+        10                   8750                                                                                                                     
+        20 ANALYST           6000                                                                                                                     
+        20 CLERK             1900                                                                                                                     
+        20 MANAGER           2975                                                                                                                     
+        20                  10875                                                                                                                     
+        30 CLERK              950                                                                                                                     
+        30 MANAGER           2850                                                                                                                     
+        30 SALESMAN          5600                                                                                                                     
+
+    DEPTNO JOB       TOTAL_SALARY                                                                                                                     
+---------- --------- ------------                                                                                                                     
+        30                   9400                                                                                                                     
+           ANALYST           6000                                                                                                                     
+           CLERK             4150                                                                                                                     
+           MANAGER           8275                                                                                                                     
+           PRESIDENT         5000                                                                                                                     
+           SALESMAN          5600                                                                                                                     
+                            29025                                                                                                                     
+
+18 rows selected.
+
+SQL> SELECT deptno, job, SUM(sal) AS total_salary
+  2  FROM emp ROLL UP (deptno) ORDER BY deptno;
+FROM emp ROLL UP (deptno) ORDER BY deptno
+              *
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select e.empno, e.ename, d.dname, d.loc FROM emp e JOIN dept d ON e.deptno=d.deptno;
+
+     EMPNO ENAME      DNAME          LOC                                                                                                              
+---------- ---------- -------------- -------------                                                                                                    
+      7782 CLARK      ACCOUNTING     NEW YORK                                                                                                         
+      7839 KING       ACCOUNTING     NEW YORK                                                                                                         
+      7934 MILLER     ACCOUNTING     NEW YORK                                                                                                         
+      7566 JONES      RESEARCH       DALLAS                                                                                                           
+      7902 FORD       RESEARCH       DALLAS                                                                                                           
+      7876 ADAMS      RESEARCH       DALLAS                                                                                                           
+      7369 SMITH      RESEARCH       DALLAS                                                                                                           
+      7788 SCOTT      RESEARCH       DALLAS                                                                                                           
+      7521 WARD       SALES          CHICAGO                                                                                                          
+      7844 TURNER     SALES          CHICAGO                                                                                                          
+      7499 ALLEN      SALES          CHICAGO                                                                                                          
+
+     EMPNO ENAME      DNAME          LOC                                                                                                              
+---------- ---------- -------------- -------------                                                                                                    
+      7900 JAMES      SALES          CHICAGO                                                                                                          
+      7698 BLAKE      SALES          CHICAGO                                                                                                          
+      7654 MARTIN     SALES          CHICAGO                                                                                                          
+
+14 rows selected.
+
+SQL> select e.ename, e.sal, s.grade FROM emp e JOIN salgrade s ON e.sal BETWEEN s.losal AND s.hisal;
+
+ENAME             SAL      GRADE                                                                                                                      
+---------- ---------- ----------                                                                                                                      
+SMITH             800          1                                                                                                                      
+JAMES             950          1                                                                                                                      
+ADAMS            1100          1                                                                                                                      
+WARD             1250          2                                                                                                                      
+MARTIN           1250          2                                                                                                                      
+MILLER           1300          2                                                                                                                      
+TURNER           1500          3                                                                                                                      
+ALLEN            1600          3                                                                                                                      
+CLARK            2450          4                                                                                                                      
+BLAKE            2850          4                                                                                                                      
+JONES            2975          4                                                                                                                      
+
+ENAME             SAL      GRADE                                                                                                                      
+---------- ---------- ----------                                                                                                                      
+SCOTT            3000          4                                                                                                                      
+FORD             3000          4                                                                                                                      
+KING             5000          5                                                                                                                      
+
+14 rows selected.
+
+SQL> select e.empno, e.ename, d.deptno, d.dname FROM emp e INNER JOIN dept d ON e.deptno=deptno;
+select e.empno, e.ename, d.deptno, d.dname FROM emp e INNER JOIN dept d ON e.deptno=deptno
+                                                                                    *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL>  select e.empno, e.ename, d.deptno, d.dname FROM emp e INNER JOIN dept d ON e.deptno=d.deptno;
+
+     EMPNO ENAME          DEPTNO DNAME                                                                                                                
+---------- ---------- ---------- --------------                                                                                                       
+      7782 CLARK              10 ACCOUNTING                                                                                                           
+      7839 KING               10 ACCOUNTING                                                                                                           
+      7934 MILLER             10 ACCOUNTING                                                                                                           
+      7566 JONES              20 RESEARCH                                                                                                             
+      7902 FORD               20 RESEARCH                                                                                                             
+      7876 ADAMS              20 RESEARCH                                                                                                             
+      7369 SMITH              20 RESEARCH                                                                                                             
+      7788 SCOTT              20 RESEARCH                                                                                                             
+      7521 WARD               30 SALES                                                                                                                
+      7844 TURNER             30 SALES                                                                                                                
+      7499 ALLEN              30 SALES                                                                                                                
+
+     EMPNO ENAME          DEPTNO DNAME                                                                                                                
+---------- ---------- ---------- --------------                                                                                                       
+      7900 JAMES              30 SALES                                                                                                                
+      7698 BLAKE              30 SALES                                                                                                                
+      7654 MARTIN             30 SALES                                                                                                                
+
+14 rows selected.
+
+SQL> select e.empno, e.ename, d.deptno, d.dname FROM emp e LEFT OUTER JOIN dept d ON e.deptno=d.deptno;
+
+     EMPNO ENAME          DEPTNO DNAME                                                                                                                
+---------- ---------- ---------- --------------                                                                                                       
+      7934 MILLER             10 ACCOUNTING                                                                                                           
+      7839 KING               10 ACCOUNTING                                                                                                           
+      7782 CLARK              10 ACCOUNTING                                                                                                           
+      7902 FORD               20 RESEARCH                                                                                                             
+      7876 ADAMS              20 RESEARCH                                                                                                             
+      7788 SCOTT              20 RESEARCH                                                                                                             
+      7566 JONES              20 RESEARCH                                                                                                             
+      7369 SMITH              20 RESEARCH                                                                                                             
+      7900 JAMES              30 SALES                                                                                                                
+      7844 TURNER             30 SALES                                                                                                                
+      7698 BLAKE              30 SALES                                                                                                                
+
+     EMPNO ENAME          DEPTNO DNAME                                                                                                                
+---------- ---------- ---------- --------------                                                                                                       
+      7654 MARTIN             30 SALES                                                                                                                
+      7521 WARD               30 SALES                                                                                                                
+      7499 ALLEN              30 SALES                                                                                                                
+
+14 rows selected.
+
+SQL> 
