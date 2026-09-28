@@ -1,0 +1,87 @@
+select e.empno, e.ename, d.deptno, d.dname from emp e right outer join dept d on e.deptno=d.deptno;
+
+     EMPNO ENAME          DEPTNO DNAME                                          
+---------- ---------- ---------- --------------                                 
+      7782 CLARK              10 ACCOUNTING                                     
+      7839 KING               10 ACCOUNTING                                     
+      7934 MILLER             10 ACCOUNTING                                     
+      7566 JONES              20 RESEARCH                                       
+      7902 FORD               20 RESEARCH                                       
+      7876 ADAMS              20 RESEARCH                                       
+      7369 SMITH              20 RESEARCH                                       
+      7788 SCOTT              20 RESEARCH                                       
+      7521 WARD               30 SALES                                          
+      7844 TURNER             30 SALES                                          
+      7499 ALLEN              30 SALES                                          
+
+     EMPNO ENAME          DEPTNO DNAME                                          
+---------- ---------- ---------- --------------                                 
+      7900 JAMES              30 SALES                                          
+      7698 BLAKE              30 SALES                                          
+      7654 MARTIN             30 SALES                                          
+                              40 OPERATIONS                                     
+
+15 rows selected.
+
+SQL> select e.empno, e.ename, d.deptno, d.dname from emp e full outer join  dept d on e.deptno=d.dep
+  2  tno;
+tno
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select e.empno, e.ename, d.deptno, d.dname from emp e full outer join dept d on e.deptno=d.deptno;
+
+     EMPNO ENAME          DEPTNO DNAME                                          
+---------- ---------- ---------- --------------                                 
+      7934 MILLER             10 ACCOUNTING                                     
+      7839 KING               10 ACCOUNTING                                     
+      7782 CLARK              10 ACCOUNTING                                     
+      7902 FORD               20 RESEARCH                                       
+      7876 ADAMS              20 RESEARCH                                       
+      7788 SCOTT              20 RESEARCH                                       
+      7566 JONES              20 RESEARCH                                       
+      7369 SMITH              20 RESEARCH                                       
+      7900 JAMES              30 SALES                                          
+      7844 TURNER             30 SALES                                          
+      7698 BLAKE              30 SALES                                          
+
+     EMPNO ENAME          DEPTNO DNAME                                          
+---------- ---------- ---------- --------------                                 
+      7654 MARTIN             30 SALES                                          
+      7521 WARD               30 SALES                                          
+      7499 ALLEN              30 SALES                                          
+                              40 OPERATIONS                                     
+
+15 rows selected.
+
+SQL> select distinct e.deptno as department_no, e.ename as employee, m.ename as manager from emp e left join emp m on e.mgr=m.empno order by e.deptno;
+
+DEPARTMENT_NO EMPLOYEE   MANAGER                                                
+------------- ---------- ----------                                             
+           10 CLARK      KING                                                   
+           10 KING                                                              
+           10 MILLER     CLARK                                                  
+           20 ADAMS      SCOTT                                                  
+           20 FORD       JONES                                                  
+           20 JONES      KING                                                   
+           20 SCOTT      JONES                                                  
+           20 SMITH      FORD                                                   
+           30 ALLEN      BLAKE                                                  
+           30 BLAKE      KING                                                   
+           30 JAMES      BLAKE                                                  
+
+DEPARTMENT_NO EMPLOYEE   MANAGER                                                
+------------- ---------- ----------                                             
+           30 MARTIN     BLAKE                                                  
+           30 TURNER     BLAKE                                                  
+           30 WARD       BLAKE                                                  
+
+14 rows selected.
+
+SQL> select ename from emp where deptno in(select deptno from dept where dname in('research','sales'));
+
+no rows selected
+
+SQL> 
