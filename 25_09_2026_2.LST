@@ -1,0 +1,536 @@
+SELECT ename
+  2  FROM emp
+  3  WHERE deptno IN
+  4        (SELECT deptno
+  5         FROM dept
+  6         WHERE dname IN ('RESEARCH', 'SALES'));
+
+ENAME                                                                           
+----------                                                                      
+JONES                                                                           
+FORD                                                                            
+ADAMS                                                                           
+SMITH                                                                           
+SCOTT                                                                           
+WARD                                                                            
+TURNER                                                                          
+ALLEN                                                                           
+JAMES                                                                           
+BLAKE                                                                           
+MARTIN                                                                          
+
+11 rows selected.
+
+SQL> select * from emp NATURAL JOIN dept;
+
+    DEPTNO      EMPNO ENAME      JOB              MGR HIREDATE         SAL      
+---------- ---------- ---------- --------- ---------- --------- ----------      
+      COMM DNAME          LOC                                                   
+---------- -------------- -------------                                         
+        10       7782 CLARK      MANAGER         7839 09-JUN-81       2450      
+           ACCOUNTING     NEW YORK                                              
+                                                                                
+        10       7839 KING       PRESIDENT            17-NOV-81       5000      
+           ACCOUNTING     NEW YORK                                              
+                                                                                
+        10       7934 MILLER     CLERK           7782 23-JAN-82       1300      
+           ACCOUNTING     NEW YORK                                              
+                                                                                
+
+    DEPTNO      EMPNO ENAME      JOB              MGR HIREDATE         SAL      
+---------- ---------- ---------- --------- ---------- --------- ----------      
+      COMM DNAME          LOC                                                   
+---------- -------------- -------------                                         
+        20       7566 JONES      MANAGER         7839 02-APR-81       2975      
+           RESEARCH       DALLAS                                                
+                                                                                
+        20       7902 FORD       ANALYST         7566 03-DEC-81       3000      
+           RESEARCH       DALLAS                                                
+                                                                                
+        20       7876 ADAMS      CLERK           7788 23-MAY-87       1100      
+           RESEARCH       DALLAS                                                
+                                                                                
+
+    DEPTNO      EMPNO ENAME      JOB              MGR HIREDATE         SAL      
+---------- ---------- ---------- --------- ---------- --------- ----------      
+      COMM DNAME          LOC                                                   
+---------- -------------- -------------                                         
+        20       7369 SMITH      CLERK           7902 17-DEC-80        800      
+           RESEARCH       DALLAS                                                
+                                                                                
+        20       7788 SCOTT      ANALYST         7566 19-APR-87       3000      
+           RESEARCH       DALLAS                                                
+                                                                                
+        30       7521 WARD       SALESMAN        7698 22-FEB-81       1250      
+       500 SALES          CHICAGO                                               
+                                                                                
+
+    DEPTNO      EMPNO ENAME      JOB              MGR HIREDATE         SAL      
+---------- ---------- ---------- --------- ---------- --------- ----------      
+      COMM DNAME          LOC                                                   
+---------- -------------- -------------                                         
+        30       7844 TURNER     SALESMAN        7698 08-SEP-81       1500      
+         0 SALES          CHICAGO                                               
+                                                                                
+        30       7499 ALLEN      SALESMAN        7698 20-FEB-81       1600      
+       300 SALES          CHICAGO                                               
+                                                                                
+        30       7900 JAMES      CLERK           7698 03-DEC-81        950      
+           SALES          CHICAGO                                               
+                                                                                
+
+    DEPTNO      EMPNO ENAME      JOB              MGR HIREDATE         SAL      
+---------- ---------- ---------- --------- ---------- --------- ----------      
+      COMM DNAME          LOC                                                   
+---------- -------------- -------------                                         
+        30       7698 BLAKE      MANAGER         7839 01-MAY-81       2850      
+           SALES          CHICAGO                                               
+                                                                                
+        30       7654 MARTIN     SALESMAN        7698 28-SEP-81       1250      
+      1400 SALES          CHICAGO                                               
+                                                                                
+
+14 rows selected.
+
+SQL> set linesize 100;
+SQL> select * from emp NATURAL JOIN dept;
+
+    DEPTNO      EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM DNAME         
+---------- ---------- ---------- --------- ---------- --------- ---------- ---------- --------------
+LOC                                                                                                 
+-------------                                                                                       
+        10       7782 CLARK      MANAGER         7839 09-JUN-81       2450            ACCOUNTING    
+NEW YORK                                                                                            
+                                                                                                    
+        10       7839 KING       PRESIDENT            17-NOV-81       5000            ACCOUNTING    
+NEW YORK                                                                                            
+                                                                                                    
+        10       7934 MILLER     CLERK           7782 23-JAN-82       1300            ACCOUNTING    
+NEW YORK                                                                                            
+                                                                                                    
+
+    DEPTNO      EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM DNAME         
+---------- ---------- ---------- --------- ---------- --------- ---------- ---------- --------------
+LOC                                                                                                 
+-------------                                                                                       
+        20       7566 JONES      MANAGER         7839 02-APR-81       2975            RESEARCH      
+DALLAS                                                                                              
+                                                                                                    
+        20       7902 FORD       ANALYST         7566 03-DEC-81       3000            RESEARCH      
+DALLAS                                                                                              
+                                                                                                    
+        20       7876 ADAMS      CLERK           7788 23-MAY-87       1100            RESEARCH      
+DALLAS                                                                                              
+                                                                                                    
+
+    DEPTNO      EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM DNAME         
+---------- ---------- ---------- --------- ---------- --------- ---------- ---------- --------------
+LOC                                                                                                 
+-------------                                                                                       
+        20       7369 SMITH      CLERK           7902 17-DEC-80        800            RESEARCH      
+DALLAS                                                                                              
+                                                                                                    
+        20       7788 SCOTT      ANALYST         7566 19-APR-87       3000            RESEARCH      
+DALLAS                                                                                              
+                                                                                                    
+        30       7521 WARD       SALESMAN        7698 22-FEB-81       1250        500 SALES         
+CHICAGO                                                                                             
+                                                                                                    
+
+    DEPTNO      EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM DNAME         
+---------- ---------- ---------- --------- ---------- --------- ---------- ---------- --------------
+LOC                                                                                                 
+-------------                                                                                       
+        30       7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0 SALES         
+CHICAGO                                                                                             
+                                                                                                    
+        30       7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300 SALES         
+CHICAGO                                                                                             
+                                                                                                    
+        30       7900 JAMES      CLERK           7698 03-DEC-81        950            SALES         
+CHICAGO                                                                                             
+                                                                                                    
+
+    DEPTNO      EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM DNAME         
+---------- ---------- ---------- --------- ---------- --------- ---------- ---------- --------------
+LOC                                                                                                 
+-------------                                                                                       
+        30       7698 BLAKE      MANAGER         7839 01-MAY-81       2850            SALES         
+CHICAGO                                                                                             
+                                                                                                    
+        30       7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400 SALES         
+CHICAGO                                                                                             
+                                                                                                    
+
+14 rows selected.
+
+SQL> set linesize 150;
+SQL> select * from emp NATURAL JOIN dept;
+
+    DEPTNO      EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM DNAME          LOC                                              
+---------- ---------- ---------- --------- ---------- --------- ---------- ---------- -------------- -------------                                    
+        10       7782 CLARK      MANAGER         7839 09-JUN-81       2450            ACCOUNTING     NEW YORK                                         
+        10       7839 KING       PRESIDENT            17-NOV-81       5000            ACCOUNTING     NEW YORK                                         
+        10       7934 MILLER     CLERK           7782 23-JAN-82       1300            ACCOUNTING     NEW YORK                                         
+        20       7566 JONES      MANAGER         7839 02-APR-81       2975            RESEARCH       DALLAS                                           
+        20       7902 FORD       ANALYST         7566 03-DEC-81       3000            RESEARCH       DALLAS                                           
+        20       7876 ADAMS      CLERK           7788 23-MAY-87       1100            RESEARCH       DALLAS                                           
+        20       7369 SMITH      CLERK           7902 17-DEC-80        800            RESEARCH       DALLAS                                           
+        20       7788 SCOTT      ANALYST         7566 19-APR-87       3000            RESEARCH       DALLAS                                           
+        30       7521 WARD       SALESMAN        7698 22-FEB-81       1250        500 SALES          CHICAGO                                          
+        30       7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0 SALES          CHICAGO                                          
+        30       7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300 SALES          CHICAGO                                          
+
+    DEPTNO      EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM DNAME          LOC                                              
+---------- ---------- ---------- --------- ---------- --------- ---------- ---------- -------------- -------------                                    
+        30       7900 JAMES      CLERK           7698 03-DEC-81        950            SALES          CHICAGO                                          
+        30       7698 BLAKE      MANAGER         7839 01-MAY-81       2850            SALES          CHICAGO                                          
+        30       7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400 SALES          CHICAGO                                          
+
+14 rows selected.
+
+SQL> select ename, sal from emp where sal=(select max(sal)from emp);
+
+ENAME             SAL                                                                                                                                 
+---------- ----------                                                                                                                                 
+KING             5000                                                                                                                                 
+
+SQL> CREATE TABLE Course_master (
+  2      C_code NUMBER PRIMARY KEY,
+  3      C_name VARCHAR2(30)
+  4  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE Student_Master (
+  2      Sno NUMBER PRIMARY KEY,
+  3      Sname VARCHAR2(30),
+  4      C_code NUMBER,
+  5      City VARCHAR2(30),
+  6      Age NUMBER,
+  7      FOREIGN KEY (C_code) REFERENCES Course_master(C_code)
+  8  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE Fee_Master (
+  2      Sno NUMBER,
+  3      Fee NUMBER,
+  4      FOREIGN KEY (Sno) REFERENCES Student_Master(Sno)
+  5  );
+
+Table created.
+
+SQL> select * from course_master;
+
+no rows selected
+
+SQL> desc  course_master;
+ Name                                                                                Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ C_CODE                                                                              NOT NULL NUMBER
+ C_NAME                                                                                       VARCHAR2(30)
+
+SQL> desc student_master;
+ Name                                                                                Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ SNO                                                                                 NOT NULL NUMBER
+ SNAME                                                                                        VARCHAR2(30)
+ C_CODE                                                                                       NUMBER
+ CITY                                                                                         VARCHAR2(30)
+ AGE                                                                                          NUMBER
+
+SQL> desc fee_master;
+ Name                                                                                Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ SNO                                                                                          NUMBER
+ FEE                                                                                          NUMBER
+
+SQL> INSERT INTO Course_master VALUES (101, 'BCA');
+
+1 row created.
+
+SQL> INSERT INTO Course_master VALUES (102, 'BBA');
+
+1 row created.
+
+SQL> INSERT INTO Course_master VALUES (103, 'BSC');
+
+1 row created.
+
+SQL> INSERT INTO Course_master VALUES (104, 'MCA');
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO Student_Master VALUES (1, 'Rahul', 101, 'Rajkot', 25);
+
+1 row created.
+
+SQL> INSERT INTO Student_Master VALUES (2, 'Priya', 102, 'Jamnagar', 22);
+
+1 row created.
+
+SQL> INSERT INTO Student_Master VALUES (3, 'Amit', 101, 'Surat', 26);
+
+1 row created.
+
+SQL> INSERT INTO Student_Master VALUES (4, 'Neha', 103, 'Ahmedabad', 24);
+
+1 row created.
+
+SQL> INSERT INTO Student_Master VALUES (5, 'Riya', 101, 'Rajkot', 28);
+
+1 row created.
+
+SQL> INSERT INTO Student_Master VALUES (6, 'Karan', 104, 'Surat', 25);
+
+1 row created.
+
+SQL> INSERT INTO Student_Master VALUES (7, 'Pooja', 102, 'Jamnagar', 26);INSERT INTO Fee_Master VALUES (1, 50000);
+INSERT INTO Student_Master VALUES (7, 'Pooja', 102, 'Jamnagar', 26);INSERT INTO Fee_Master VALUES (1, 50000)
+                                                                   *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> INSERT INTO Fee_Master VALUES (3, 50000);
+
+1 row created.
+
+SQL> INSERT INTO Fee_Master VALUES (4, 45000);
+
+1 row created.
+
+SQL> INSERT INTO Fee_Master VALUES (6, 60000);
+
+1 row created.
+
+SQL> INSERT INTO Fee_Master VALUES (7, 40000);
+INSERT INTO Fee_Master VALUES (7, 40000)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.SYS_C005399) violated - parent key not found 
+
+
+SQL> insert into fee_master values(7, 40000);
+insert into fee_master values(7, 40000)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.SYS_C005399) violated - parent key not found 
+
+
+SQL> INSERT INTO Student_Master VALUES (7, 'Pooja', 102, 'Jamnagar', 26);
+
+1 row created.
+
+SQL> select * from student_master;
+
+       SNO SNAME                              C_CODE CITY                                  AGE                                                        
+---------- ------------------------------ ---------- ------------------------------ ----------                                                        
+         1 Rahul                                 101 Rajkot                                 25                                                        
+         2 Priya                                 102 Jamnagar                               22                                                        
+         3 Amit                                  101 Surat                                  26                                                        
+         4 Neha                                  103 Ahmedabad                              24                                                        
+         5 Riya                                  101 Rajkot                                 28                                                        
+         6 Karan                                 104 Surat                                  25                                                        
+         7 Pooja                                 102 Jamnagar                               26                                                        
+
+7 rows selected.
+
+SQL> INSERT INTO Fee_Master VALUES (1, 50000);
+
+1 row created.
+
+SQL> INSERT INTO Fee_Master VALUES (3, 50000);
+
+1 row created.
+
+SQL> INSERT INTO Fee_Master VALUES (4, 45000);
+
+1 row created.
+
+SQL> INSERT INTO Fee_Master VALUES (6, 60000);
+
+1 row created.
+
+SQL> INSERT INTO Fee_Master VALUES (7, 40000);
+
+1 row created.
+
+SQL> select * from fee_master;
+
+       SNO        FEE                                                                                                                                 
+---------- ----------                                                                                                                                 
+         3      50000                                                                                                                                 
+         4      45000                                                                                                                                 
+         6      60000                                                                                                                                 
+         1      50000                                                                                                                                 
+         3      50000                                                                                                                                 
+         4      45000                                                                                                                                 
+         6      60000                                                                                                                                 
+         7      40000                                                                                                                                 
+
+8 rows selected.
+
+SQL> DELETE FROM Student_Master
+  2  WHERE Sno = 3;
+DELETE FROM Student_Master
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (SCOTT.SYS_C005399) violated - child record found 
+
+
+SQL> DELETE FROM Student_Master
+  2  WHERE Sno = 7;
+DELETE FROM Student_Master
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (SCOTT.SYS_C005399) violated - child record found 
+
+
+SQL> DELETE FROM Student_Master
+  2  ;
+DELETE FROM Student_Master
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (SCOTT.SYS_C005399) violated - child record found 
+
+
+SQL> delete from fee_master where sno=3;
+
+2 rows deleted.
+
+SQL>  delete from fee_master where sno=4;
+
+2 rows deleted.
+
+SQL>  delete from fee_master where sno=6;
+
+2 rows deleted.
+
+SQL> select * from fee_master;
+
+       SNO        FEE                                                                                                                                 
+---------- ----------                                                                                                                                 
+         1      50000                                                                                                                                 
+         7      40000                                                                                                                                 
+
+SQL>  delete from fee_master where sno=7;
+
+1 row deleted.
+
+SQL> select * from fee_master;
+
+       SNO        FEE                                                                                                                                 
+---------- ----------                                                                                                                                 
+         1      50000                                                                                                                                 
+
+SQL> INSERT INTO Fee_Master VALUES (3, 50000);
+
+1 row created.
+
+SQL> INSERT INTO Fee_Master VALUES (4, 45000);
+
+1 row created.
+
+SQL> INSERT INTO Fee_Master VALUES (6, 60000);
+
+1 row created.
+
+SQL> NSERT INTO Fee_Master VALUES (7, 40000);
+SP2-0734: unknown command beginning "NSERT INTO..." - rest of line ignored.
+SQL> INSERT INTO Fee_Master VALUES (7, 40000);
+
+1 row created.
+
+SQL> select * from fee_master;
+
+       SNO        FEE                                                                                                                                 
+---------- ----------                                                                                                                                 
+         1      50000                                                                                                                                 
+         3      50000                                                                                                                                 
+         4      45000                                                                                                                                 
+         6      60000                                                                                                                                 
+         7      40000                                                                                                                                 
+
+SQL> SELECT *
+  2  FROM Student_Master
+  3  WHERE Sno NOT IN
+  4        (SELECT Sno FROM Fee_Master);
+
+       SNO SNAME                              C_CODE CITY                                  AGE                                                        
+---------- ------------------------------ ---------- ------------------------------ ----------                                                        
+         2 Priya                                 102 Jamnagar                               22                                                        
+         5 Riya                                  101 Rajkot                                 28                                                        
+
+SQL> SELECT *
+  2  FROM Student_Master
+  3  WHERE City IN ('Jamnagar', 'Rajkot', 'Surat');
+
+       SNO SNAME                              C_CODE CITY                                  AGE                                                        
+---------- ------------------------------ ---------- ------------------------------ ----------                                                        
+         1 Rahul                                 101 Rajkot                                 25                                                        
+         2 Priya                                 102 Jamnagar                               22                                                        
+         3 Amit                                  101 Surat                                  26                                                        
+         5 Riya                                  101 Rajkot                                 28                                                        
+         6 Karan                                 104 Surat                                  25                                                        
+         7 Pooja                                 102 Jamnagar                               26                                                        
+
+6 rows selected.
+
+SQL> SNAME   C_NAME
+SP2-0734: unknown command beginning "SNAME   C_..." - rest of line ignored.
+SQL> ------- -------
+SQL> Rahul   BCA
+SP2-0734: unknown command beginning "Rahul   BC..." - rest of line ignored.
+SQL> Amit    BCA
+SP2-0734: unknown command beginning "Amit    BC..." - rest of line ignored.
+SQL> Riya    BCA
+SP2-0734: unknown command beginning "Riya    BC..." - rest of line ignored.
+SQL> Priya   BBA
+SP2-0734: unknown command beginning "Priya   BB..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> Pooja   BBA
+SP2-0734: unknown command beginning "Pooja   BB..." - rest of line ignored.
+SQL> Neha    BSC
+SP2-0734: unknown command beginning "Neha    BS..." - rest of line ignored.
+SQL> Karan   MCA;
+SP2-0734: unknown command beginning "Karan   MC..." - rest of line ignored.
+SQL> SELECT s.Sname, c.C_name
+  2  FROM Student_Master s, Course_master c
+  3  WHERE s.C_code = c.C_code
+  4  ORDER BY c.C_name;
+
+SNAME                          C_NAME                                                                                                                 
+------------------------------ ------------------------------                                                                                         
+Priya                          BBA                                                                                                                    
+Pooja                          BBA                                                                                                                    
+Rahul                          BCA                                                                                                                    
+Amit                           BCA                                                                                                                    
+Riya                           BCA                                                                                                                    
+Neha                           BSC                                                                                                                    
+Karan                          MCA                                                                                                                    
+
+7 rows selected.
+
+SQL> SELECT s.Sname, c.C_name, s.Age
+  2  FROM Student_Master s, Course_master c
+  3  WHERE s.C_code = c.C_code
+  4  AND s.Age > 23
+  5  AND s.Age < 27
+  6  AND c.C_name = 'BCA';
+
+SNAME                          C_NAME                                AGE                                                                              
+------------------------------ ------------------------------ ----------                                                                              
+Rahul                          BCA                                    25                                                                              
+Amit                           BCA                                    26                                                                              
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 
