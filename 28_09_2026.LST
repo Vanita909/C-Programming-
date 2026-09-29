@@ -1,0 +1,1070 @@
+CREATE TABLE Emp_mast (    Emp_no NUMBER PRIMARY KEY,    Emp_name VARCHAR2(30),    Dept_code NUMBER,    Desi VARCHAR2(30),    CONSTRAINT fk_dept    FOREIGN KEY (Dept_code) REFERENCES Dept_mast(Dept_no));
+CREATE TABLE Emp_mast (    Emp_no NUMBER PRIMARY KEY,    Emp_name VARCHAR2(30),    Dept_code NUMBER,    Desi VARCHAR2(30),    CONSTRAINT fk_dept    FOREIGN KEY (Dept_code) REFERENCES Dept_mast(Dept_no))
+                                                                                                                                                                                       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> CREATE TABLE Emp_mast (    Emp_no NUMBER PRIMARY KEY,    Emp_name VARCHAR2(30),    Dept_code NUMBER,    Desi VARCHAR2(30),    CONSTRAINT fk_dept    FOREIGN KEY (Dept_code) REFERENCES Dept_mast(Dept_no));
+CREATE TABLE Emp_mast (    Emp_no NUMBER PRIMARY KEY,    Emp_name VARCHAR2(30),    Dept_code NUMBER,    Desi VARCHAR2(30),    CONSTRAINT fk_dept    FOREIGN KEY (Dept_code) REFERENCES Dept_mast(Dept_no))
+                                                                                                                                                                                       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> CREATE TABLE Dept_mast (    Dept_no NUMBER PRIMARY KEY,    Dept_name VARCHAR2(30));
+
+Table created.
+
+SQL> CREATE TABLE Emp_mast (    Emp_no NUMBER PRIMARY KEY,    Emp_name VARCHAR2(30),    Dept_code NUMBER,    Desi VARCHAR2(30),    CONSTRAINT fk_dept    FOREIGN KEY (Dept_code) REFERENCES Dept_mast(Dept_no));
+
+Table created.
+
+SQL> CREATE TABLE Salary_mast (    Emp_no NUMBER,    Sal NUMBER,    Hra NUMBER,    Ma NUMBER,    Pf NUMBER,    CONSTRAINT fk_emp    FOREIGN KEY (Emp_no) REFERENCES Emp_mast(Emp_no));
+
+Table created.
+
+SQL> INSERT INTO Dept_mast VALUES (10, 'Computer');
+
+1 row created.
+
+SQL> INSERT INTO Dept_mast VALUES (20, 'HR');
+
+1 row created.
+
+SQL> INSERT INTO Dept_mast VALUES (30, 'Sales');
+
+1 row created.
+
+SQL> INSERT INTO Dept_mast VALUES (40, 'Account');
+
+1 row created.
+
+SQL> select * from dept_mast;
+
+   DEPT_NO DEPT_NAME                                                            
+---------- ------------------------------                                       
+        10 Computer                                                             
+        20 HR                                                                   
+        30 Sales                                                                
+        40 Account                                                              
+
+SQL> INSERT INTO Emp_mast VALUES (101, 'Rahul', 10, 'Manager');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES (102, 'Priya', 20, 'Clerk');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES (103, 'Amit', 30, 'Developer');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES (104, 'Neha', 40, 'Accountant');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES (105, 'Kiran', 10, 'Programmer');
+
+1 row created.
+
+SQL> select * from emp_mast;
+
+    EMP_NO EMP_NAME                        DEPT_CODE                            
+---------- ------------------------------ ----------                            
+DESI                                                                            
+------------------------------                                                  
+       101 Rahul                                  10                            
+Manager                                                                         
+                                                                                
+       102 Priya                                  20                            
+Clerk                                                                           
+                                                                                
+       103 Amit                                   30                            
+Developer                                                                       
+                                                                                
+
+    EMP_NO EMP_NAME                        DEPT_CODE                            
+---------- ------------------------------ ----------                            
+DESI                                                                            
+------------------------------                                                  
+       104 Neha                                   40                            
+Accountant                                                                      
+                                                                                
+       105 Kiran                                  10                            
+Programmer                                                                      
+                                                                                
+
+SQL> set linesize 200;
+SQL>  select * from emp_mast;
+
+    EMP_NO EMP_NAME                        DEPT_CODE DESI                                                                                                                                               
+---------- ------------------------------ ---------- ------------------------------                                                                                                                     
+       101 Rahul                                  10 Manager                                                                                                                                            
+       102 Priya                                  20 Clerk                                                                                                                                              
+       103 Amit                                   30 Developer                                                                                                                                          
+       104 Neha                                   40 Accountant                                                                                                                                         
+       105 Kiran                                  10 Programmer                                                                                                                                         
+
+SQL> INSERT INTO Salary_mast VALUES (101, 4500, 300, 200, 100);
+
+1 row created.
+
+SQL> INSERT INTO Salary_mast VALUES (102, 1800, 150, 100, 50);
+
+1 row created.
+
+SQL> INSERT INTO Salary_mast VALUES (103, 3000, 200, 150, 100);
+
+1 row created.
+
+SQL> INSERT INTO Salary_mast VALUES (104, 5500, 400, 250, 200);
+
+1 row created.
+
+SQL> INSERT INTO Salary_mast VALUES (105, 2500, 150, 100, 50);
+
+1 row created.
+
+SQL> select * from salary_mast;
+
+    EMP_NO        SAL        HRA         MA         PF                                                                                                                                                  
+---------- ---------- ---------- ---------- ----------                                                                                                                                                  
+       101       4500        300        200        100                                                                                                                                                  
+       102       1800        150        100         50                                                                                                                                                  
+       103       3000        200        150        100                                                                                                                                                  
+       104       5500        400        250        200                                                                                                                                                  
+       105       2500        150        100         50                                                                                                                                                  
+
+SQL> --I ) query
+SQL> SELECT e.emp_name,
+  2         d.dept_name,
+  3         s.sal + s.hra + s.ma - s.pf AS total_salary
+  4  FROM Emp_mast e
+  5  JOIN Dept_mast d
+  6  ON e.dept_code = d.dept_no
+  7  JOIN Salary_mast s
+  8  ON e.emp_no = s.emp_no
+  9  WHERE s.sal > 2000
+ 10  AND s.sal < 5000;
+
+EMP_NAME                       DEPT_NAME                      TOTAL_SALARY                                                                                                                              
+------------------------------ ------------------------------ ------------                                                                                                                              
+Rahul                          Computer                               4900                                                                                                                              
+Amit                           Sales                                  3250                                                                                                                              
+Kiran                          Computer                               2700                                                                                                                              
+
+SQL> --II) query
+SQL> UPDATE Salary_mast
+  2  SET hra = CASE
+  3              WHEN sal > 2000 THEN 100
+  4              ELSE 200
+  5            END;
+
+5 rows updated.
+
+SQL> SELECT * FROM Salary_mast;
+
+    EMP_NO        SAL        HRA         MA         PF                                                                                                                                                  
+---------- ---------- ---------- ---------- ----------                                                                                                                                                  
+       101       4500        100        200        100                                                                                                                                                  
+       102       1800        200        100         50                                                                                                                                                  
+       103       3000        100        150        100                                                                                                                                                  
+       104       5500        100        250        200                                                                                                                                                  
+       105       2500        100        100         50                                                                                                                                                  
+
+SQL> SELECT Dept_no, Dept_name
+  2  FROM Dept_mast
+  3  WHERE Dept_name = 'Computer';
+
+   DEPT_NO DEPT_NAME                                                                                                                                                                                    
+---------- ------------------------------                                                                                                                                                               
+        10 Computer                                                                                                                                                                                     
+
+SQL> --III) query
+SQL> SELECT Dept_no, Dept_name
+  2  FROM Dept_mast
+  3  WHERE Dept_name = 'Computer';
+
+   DEPT_NO DEPT_NAME                                                                                                                                                                                    
+---------- ------------------------------                                                                                                                                                               
+        10 Computer                                                                                                                                                                                     
+
+SQL> DELETE FROM Salary_mast
+  2  WHERE Emp_no IN (
+  3      SELECT Emp_no
+  4      FROM Emp_mast
+  5      WHERE Dept_code IN (
+  6          SELECT Dept_no
+  7          FROM Dept_mast
+  8          WHERE Dept_name = 'Computer'
+  9      )
+ 10  );
+
+2 rows deleted.
+
+SQL> DELETE FROM Emp_mast
+  2  WHERE Dept_code IN (
+  3      SELECT Dept_no
+  4      FROM Dept_mast
+  5      WHERE Dept_name = 'Computer'
+  6  );
+
+2 rows deleted.
+
+SQL> SELECT * FROM Emp_mast;
+
+    EMP_NO EMP_NAME                        DEPT_CODE DESI                                                                                                                                               
+---------- ------------------------------ ---------- ------------------------------                                                                                                                     
+       102 Priya                                  20 Clerk                                                                                                                                              
+       103 Amit                                   30 Developer                                                                                                                                          
+       104 Neha                                   40 Accountant                                                                                                                                         
+
+SQL> --12 completed
+SQL> --13 start
+SQL> CREATE TABLE Salesman (    salesman_id NUMBER PRIMARY KEY,    name VARCHAR2(30),    city VARCHAR2(30),    commission NUMBER(5,2));
+CREATE TABLE Salesman (    salesman_id NUMBER PRIMARY KEY,    name VARCHAR2(30),    city VARCHAR2(30),    commission NUMBER(5,2))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> select * from salesman
+  2  ;
+
+       SID SNAME                CITY              SAL       COMM                                                                                                                                        
+---------- -------------------- ---------- ---------- ----------                                                                                                                                        
+         1 Suresh               Mumbai           3000        500                                                                                                                                        
+         3 Sunil                Bombay           4000        800                                                                                                                                        
+         4 Amit                 Puna             3000        600                                                                                                                                        
+         5 Sachin               Mumbai           4500        900                                                                                                                                        
+
+SQL> SELECT * FROM Customer;
+
+CUSTOMERID CUSTOMERNAME                                                                                                                                                                                 
+---------- --------------------------------------------------                                                                                                                                           
+         1 John                                                                                                                                                                                         
+         2 Jane                                                                                                                                                                                         
+         3 Bob                                                                                                                                                                                          
+
+SQL> DESC Customer;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ CUSTOMERID                                                                                                        NOT NULL NUMBER(38)
+ CUSTOMERNAME                                                                                                      NOT NULL VARCHAR2(50)
+
+SQL> DESC Salesman;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ SID                                                                                                               NOT NULL NUMBER(5)
+ SNAME                                                                                                                      VARCHAR2(20)
+ CITY                                                                                                                       VARCHAR2(10)
+ SAL                                                                                                                        NUMBER(10)
+ COMM                                                                                                                       NUMBER(8)
+
+SQL> CREATE TABLE Salesman2 (
+  2      salesman_id NUMBER(5) PRIMARY KEY,
+  3      name VARCHAR2(30),
+  4      city VARCHAR2(20),
+  5      commission NUMBER(5,2)
+  6  );
+
+Table created.
+
+SQL> CREATE TABLE Customer2 (
+  2      cust_id NUMBER(5) PRIMARY KEY,
+  3      cname VARCHAR2(30),
+  4      city VARCHAR2(20),
+  5      grade NUMBER(5),
+  6      salesman_id NUMBER(5),
+  7      FOREIGN KEY (salesman_id)
+  8      REFERENCES Salesman2(salesman_id)
+  9  );
+
+Table created.
+
+SQL> CREATE TABLE Orders2 (
+  2      ord_id NUMBER(5) PRIMARY KEY,
+  3      purchase_amt NUMBER(10,2),
+  4      order_date DATE,
+  5      cust_id NUMBER(5),
+  6      salesman_id NUMBER(5),
+  7      FOREIGN KEY (cust_id)
+  8      REFERENCES Customer2(cust_id),
+  9      FOREIGN KEY (salesman_id)
+ 10      REFERENCES Salesman2(salesman_id)
+ 11  );
+
+Table created.
+
+SQL> CREATE TABLE Emp_department2 (
+  2      dept_no NUMBER(5) PRIMARY KEY,
+  3      deptname VARCHAR2(30)
+  4  );
+
+Table created.
+
+SQL> CREATE TABLE Emp_details2 (
+  2      emp_id NUMBER(5) PRIMARY KEY,
+  3      emp_fname VARCHAR2(30),
+  4      emp_lname VARCHAR2(30),
+  5      salary NUMBER(10,2),
+  6      dept_no NUMBER(5),
+  7      FOREIGN KEY (dept_no)
+  8      REFERENCES Emp_department2(dept_no)
+  9  );
+
+Table created.
+
+SQL> INSERT INTO Salesman VALUES (5001, 'James', 'New York', 0.15);
+INSERT INTO Salesman VALUES (5001, 'James', 'New York', 0.15)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> INSERT INTO Salesman VALUES (5002, 'Nail', 'Paris', 0.13);
+INSERT INTO Salesman VALUES (5002, 'Nail', 'Paris', 0.13)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> INSERT INTO Salesman VALUES (5003, 'Paul', 'London', 0.12);
+INSERT INTO Salesman VALUES (5003, 'Paul', 'London', 0.12)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> INSERT INTO Salesman VALUES (5004, 'Mark', 'London', 0.14);
+INSERT INTO Salesman VALUES (5004, 'Mark', 'London', 0.14)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> INSERT INTO Salesman VALUES (5001, 'James', 'New York', 0.15);
+INSERT INTO Salesman VALUES (5001, 'James', 'New York', 0.15)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> INSERT INTO Salesman2 VALUES (5001, 'James', 'New York', 0.15);
+
+1 row created.
+
+SQL> INSERT INTO Salesman2 VALUES (5002, 'Nail', 'Paris', 0.13);
+
+1 row created.
+
+SQL> INSERT INTO Salesman2 VALUES (5003, 'Paul', 'London', 0.12);
+
+1 row created.
+
+SQL> INSERT INTO Salesman2 VALUES (5004, 'Mark', 'London', 0.14);
+
+1 row created.
+
+SQL> INSERT INTO Salesman2 VALUES (5005, 'John', 'Paris', 0.11);
+
+1 row created.
+
+SQL> select * from salesman2;
+
+SALESMAN_ID NAME                           CITY                 COMMISSION                                                                                                                              
+----------- ------------------------------ -------------------- ----------                                                                                                                              
+       5001 James                          New York                    .15                                                                                                                              
+       5002 Nail                           Paris                       .13                                                                                                                              
+       5003 Paul                           London                      .12                                                                                                                              
+       5004 Mark                           London                      .14                                                                                                                              
+       5005 John                           Paris                       .11                                                                                                                              
+
+SQL> INSERT INTO Customer2 VALUES (3001, 'Brad', 'New York', 100, 5001);
+
+1 row created.
+
+SQL> INSERT INTO Customer2 VALUES (3002, 'Nick', 'Paris', 200, 5002);
+
+1 row created.
+
+SQL> INSERT INTO Customer2 VALUES (3003, 'Graham', 'London', 300, 5003);
+
+1 row created.
+
+SQL> INSERT INTO Customer2 VALUES (3004, 'Fabian', 'Paris', 200, 5004);
+
+1 row created.
+
+SQL> INSERT INTO Customer2 VALUES (3005, 'Jerry', 'London', 150, 5003);
+
+1 row created.
+
+SQL> INSERT INTO Customer2 VALUES (3006, 'William', 'New York', 250, 5001);
+
+1 row created.
+
+SQL> select * from customer2;
+
+   CUST_ID CNAME                          CITY                      GRADE SALESMAN_ID                                                                                                                   
+---------- ------------------------------ -------------------- ---------- -----------                                                                                                                   
+      3001 Brad                           New York                    100        5001                                                                                                                   
+      3002 Nick                           Paris                       200        5002                                                                                                                   
+      3003 Graham                         London                      300        5003                                                                                                                   
+      3004 Fabian                         Paris                       200        5004                                                                                                                   
+      3005 Jerry                          London                      150        5003                                                                                                                   
+      3006 William                        New York                    250        5001                                                                                                                   
+
+6 rows selected.
+
+SQL> INSERT INTO Orders2 VALUES (7001, 1500, TO_DATE('10-01-2026','DD-MM-YYYY'), 3001, 5001);
+
+1 row created.
+
+SQL> INSERT INTO Orders2 VALUES (7002, 800,  TO_DATE('12-01-2026','DD-MM-YYYY'), 3002, 5002);
+
+1 row created.
+
+SQL> INSERT INTO Orders2 VALUES (7003, 2500, TO_DATE('15-01-2026','DD-MM-YYYY'), 3003, 5003);
+
+1 row created.
+
+SQL> INSERT INTO Orders2 VALUES (7004, 1200, TO_DATE('18-01-2026','DD-MM-YYYY'), 3004, 5004);
+
+1 row created.
+
+SQL> INSERT INTO Orders2 VALUES (7005, 600,  TO_DATE('20-01-2026','DD-MM-YYYY'), 3005, 5003);
+
+1 row created.
+
+SQL> INSERT INTO Orders2 VALUES (7006, 1800, TO_DATE('22-01-2026','DD-MM-YYYY'), 3006, 5001);
+
+1 row created.
+
+SQL> select * from order2;
+select * from order2
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from orders2;
+
+    ORD_ID PURCHASE_AMT ORDER_DAT    CUST_ID SALESMAN_ID                                                                                                                                                
+---------- ------------ --------- ---------- -----------                                                                                                                                                
+      7001         1500 10-JAN-26       3001        5001                                                                                                                                                
+      7002          800 12-JAN-26       3002        5002                                                                                                                                                
+      7003         2500 15-JAN-26       3003        5003                                                                                                                                                
+      7004         1200 18-JAN-26       3004        5004                                                                                                                                                
+      7005          600 20-JAN-26       3005        5003                                                                                                                                                
+      7006         1800 22-JAN-26       3006        5001                                                                                                                                                
+
+6 rows selected.
+
+SQL> INSERT INTO Emp_department2 VALUES (10, 'Computer');
+
+1 row created.
+
+SQL> INSERT INTO Emp_department2 VALUES (20, 'HR');
+
+1 row created.
+
+SQL> INSERT INTO Emp_department2 VALUES (30, 'Sales');
+
+1 row created.
+
+SQL> INSERT INTO Emp_department2 VALUES (40, 'Account');
+
+1 row created.
+
+SQL> select * from Emp_department2;
+
+   DEPT_NO DEPTNAME                                                                                                                                                                                     
+---------- ------------------------------                                                                                                                                                               
+        10 Computer                                                                                                                                                                                     
+        20 HR                                                                                                                                                                                           
+        30 Sales                                                                                                                                                                                        
+        40 Account                                                                                                                                                                                      
+
+SQL> INSERT INTO Emp_details2 VALUES (101, 'Rahul', 'Patel', 25000, 10);
+
+1 row created.
+
+SQL> INSERT INTO Emp_details2 VALUES (102, 'Priya', 'Shah', 22000, 20);
+
+1 row created.
+
+SQL> INSERT INTO Emp_details2 VALUES (103, 'Amit', 'Joshi', 30000, 10);
+
+1 row created.
+
+SQL> INSERT INTO Emp_details2 VALUES (104, 'Neha', 'Mehta', 28000, 10);
+
+1 row created.
+
+SQL> INSERT INTO Emp_details2 VALUES (105, 'Kiran', 'Patel', 21000, 30);
+
+1 row created.
+
+SQL> INSERT INTO Emp_details2 VALUES (106, 'Ravi', 'Shah', 24000, 10);
+
+1 row created.
+
+SQL> INSERT INTO Emp_details2 VALUES (107, 'Pooja', 'Joshi', 23000, 20);
+
+1 row created.
+
+SQL> select * from Emp_details2;
+
+    EMP_ID EMP_FNAME                      EMP_LNAME                          SALARY    DEPT_NO                                                                                                          
+---------- ------------------------------ ------------------------------ ---------- ----------                                                                                                          
+       101 Rahul                          Patel                               25000         10                                                                                                          
+       102 Priya                          Shah                                22000         20                                                                                                          
+       103 Amit                           Joshi                               30000         10                                                                                                          
+       104 Neha                           Mehta                               28000         10                                                                                                          
+       105 Kiran                          Patel                               21000         30                                                                                                          
+       106 Ravi                           Shah                                24000         10                                                                                                          
+       107 Pooja                          Joshi                               23000         20                                                                                                          
+
+7 rows selected.
+
+SQL> --a)
+SQL> SELECT c.cname AS customer_name,
+  2         s.name AS salesman_name,
+  3         c.city
+  4  FROM Customer2 c
+  5  JOIN Salesman2 s
+  6  ON c.salesman_id = s.salesman_id
+  7  WHERE c.city = s.city;
+
+CUSTOMER_NAME                  SALESMAN_NAME                  CITY                                                                                                                                      
+------------------------------ ------------------------------ --------------------                                                                                                                      
+Brad                           James                          New York                                                                                                                                  
+Nick                           Nail                           Paris                                                                                                                                     
+Graham                         Paul                           London                                                                                                                                    
+Jerry                          Paul                           London                                                                                                                                    
+William                        James                          New York                                                                                                                                  
+
+SQL> --b)
+SQL> SELECT c.cname AS customer_name,
+  2         s.name AS salesman_name
+  3  FROM Customer2 c
+  4  JOIN Salesman2 s
+  5  ON c.salesman_id = s.salesman_id;
+
+CUSTOMER_NAME                  SALESMAN_NAME                                                                                                                                                            
+------------------------------ ------------------------------                                                                                                                                           
+Brad                           James                                                                                                                                                                    
+Nick                           Nail                                                                                                                                                                     
+Graham                         Paul                                                                                                                                                                     
+Fabian                         Mark                                                                                                                                                                     
+Jerry                          Paul                                                                                                                                                                     
+William                        James                                                                                                                                                                    
+
+6 rows selected.
+
+SQL> --c)
+SQL> SELECT o.ord_id,
+  2         c.cname AS customer_name,
+  3         c.city AS customer_city,
+  4         s.name AS salesman_name,
+  5         s.city AS salesman_city
+  6  FROM Orders2 o
+  7  JOIN Customer2 c
+  8  ON o.cust_id = c.cust_id
+  9  JOIN Salesman2 s
+ 10  ON o.salesman_id = s.salesman_id
+ 11  WHERE c.city <> s.city;
+
+    ORD_ID CUSTOMER_NAME                  CUSTOMER_CITY        SALESMAN_NAME                  SALESMAN_CITY                                                                                             
+---------- ------------------------------ -------------------- ------------------------------ --------------------                                                                                      
+      7004 Fabian                         Paris                Mark                           London                                                                                                    
+
+SQL> --D)
+SQL> SELECT o.ord_id,
+  2         c.cname AS customer_name
+  3  FROM Orders2 o
+  4  JOIN Customer2 c
+  5  ON o.cust_id = c.cust_id;
+
+    ORD_ID CUSTOMER_NAME                                                                                                                                                                                
+---------- ------------------------------                                                                                                                                                               
+      7001 Brad                                                                                                                                                                                         
+      7002 Nick                                                                                                                                                                                         
+      7003 Graham                                                                                                                                                                                       
+      7004 Fabian                                                                                                                                                                                       
+      7005 Jerry                                                                                                                                                                                        
+      7006 William                                                                                                                                                                                      
+
+6 rows selected.
+
+SQL> --e)
+SQL> SELECT c.cname AS customer_name,
+  2         c.city,
+  3         s.name AS salesman_name,
+  4         s.commission
+  5  FROM Customer2 c
+  6  JOIN Salesman2 s
+  7  ON c.salesman_id = s.salesman_id
+  8  WHERE s.commission BETWEEN 0.12 AND 0.14;
+
+CUSTOMER_NAME                  CITY                 SALESMAN_NAME                  COMMISSION                                                                                                           
+------------------------------ -------------------- ------------------------------ ----------                                                                                                           
+Nick                           Paris                Nail                                  .13                                                                                                           
+Graham                         London               Paul                                  .12                                                                                                           
+Fabian                         Paris                Mark                                  .14                                                                                                           
+Jerry                          London               Paul                                  .12                                                                                                           
+
+SQL> --F)
+SQL> SELECT o.ord_id,
+  2         c.cname AS customer_name,
+  3         s.commission AS commission_rate,
+  4         o.purchase_amt * s.commission AS earned_commission
+  5  FROM Orders2 o
+  6  JOIN Customer2 c
+  7  ON o.cust_id = c.cust_id
+  8  JOIN Salesman2 s
+  9  ON o.salesman_id = s.salesman_id
+ 10  WHERE c.grade >= 200;
+
+    ORD_ID CUSTOMER_NAME                  COMMISSION_RATE EARNED_COMMISSION                                                                                                                             
+---------- ------------------------------ --------------- -----------------                                                                                                                             
+      7006 William                                    .15               270                                                                                                                             
+      7002 Nick                                       .13               104                                                                                                                             
+      7003 Graham                                     .12               300                                                                                                                             
+      7004 Fabian                                     .14               168                                                                                                                             
+
+SQL> --G)
+SQL> SELECT o.ord_id,
+  2         o.purchase_amt,
+  3         c.cname AS customer_name,
+  4         c.city
+  5  FROM Orders2 o
+  6  JOIN Customer2 c
+  7  ON o.cust_id = c.cust_id
+  8  WHERE o.purchase_amt BETWEEN 500 AND 2000;
+
+    ORD_ID PURCHASE_AMT CUSTOMER_NAME                  CITY                                                                                                                                             
+---------- ------------ ------------------------------ --------------------                                                                                                                             
+      7001         1500 Brad                           New York                                                                                                                                         
+      7002          800 Nick                           Paris                                                                                                                                            
+      7004         1200 Fabian                         Paris                                                                                                                                            
+      7005          600 Jerry                          London                                                                                                                                           
+      7006         1800 William                        New York                                                                                                                                         
+
+SQL> --H)
+SQL> SELECT s.name AS salesman_name,
+  2         c.cname AS customer_name
+  3  FROM Salesman2 s
+  4  JOIN Customer2 c
+  5  ON s.salesman_id = c.salesman_id;
+
+SALESMAN_NAME                  CUSTOMER_NAME                                                                                                                                                            
+------------------------------ ------------------------------                                                                                                                                           
+James                          Brad                                                                                                                                                                     
+Nail                           Nick                                                                                                                                                                     
+Paul                           Graham                                                                                                                                                                   
+Mark                           Fabian                                                                                                                                                                   
+Paul                           Jerry                                                                                                                                                                    
+James                          William                                                                                                                                                                  
+
+6 rows selected.
+
+SQL> --i)
+SQL> SELECT c.cname AS customer_name,
+  2         s.name AS salesman_name,
+  3         s.commission
+  4  FROM Customer2 c
+  5  JOIN Salesman2 s
+  6  ON c.salesman_id = s.salesman_id
+  7  WHERE s.commission > 0.12;
+
+CUSTOMER_NAME                  SALESMAN_NAME                  COMMISSION                                                                                                                                
+------------------------------ ------------------------------ ----------                                                                                                                                
+Brad                           James                                 .15                                                                                                                                
+Nick                           Nail                                  .13                                                                                                                                
+Fabian                         Mark                                  .14                                                                                                                                
+William                        James                                 .15                                                                                                                                
+
+SQL> --j)
+SQL> SELECT e.emp_id,
+  2         e.emp_fname,
+  3         e.emp_lname,
+  4         e.salary,
+  5         d.dept_no,
+  6         d.deptname
+  7  FROM Emp_details2 e
+  8  JOIN Emp_department2 d
+  9  ON e.dept_no = d.dept_no;
+
+    EMP_ID EMP_FNAME                      EMP_LNAME                          SALARY    DEPT_NO DEPTNAME                                                                                                 
+---------- ------------------------------ ------------------------------ ---------- ---------- ------------------------------                                                                           
+       101 Rahul                          Patel                               25000         10 Computer                                                                                                 
+       102 Priya                          Shah                                22000         20 HR                                                                                                       
+       103 Amit                           Joshi                               30000         10 Computer                                                                                                 
+       104 Neha                           Mehta                               28000         10 Computer                                                                                                 
+       105 Kiran                          Patel                               21000         30 Sales                                                                                                    
+       106 Ravi                           Shah                                24000         10 Computer                                                                                                 
+       107 Pooja                          Joshi                               23000         20 HR                                                                                                       
+
+7 rows selected.
+
+SQL> --k)
+SQL> SELECT d.dept_no,
+  2         d.deptname,
+  3         COUNT(e.emp_id) AS employee_count
+  4  FROM Emp_department2 d
+  5  JOIN Emp_details2 e
+  6  ON d.dept_no = e.dept_no
+  7  GROUP BY d.dept_no, d.deptname
+  8  HAVING COUNT(e.emp_id) > 2;
+
+   DEPT_NO DEPTNAME                       EMPLOYEE_COUNT                                                                                                                                                
+---------- ------------------------------ --------------                                                                                                                                                
+        10 Computer                                    4                                                                                                                                                
+
+SQL> --13 complete
+SQL> --14 start->
+SQL> CREATE TABLE Orders_new (
+  2      Ord_no NUMBER(5) PRIMARY KEY,
+  3      purch_amt NUMBER(10,2),
+  4      ord_date DATE,
+  5      customer_id NUMBER(5),
+  6      salesman_id NUMBER(5)
+  7  );
+
+Table created.
+
+SQL> INSERT INTO Orders_new VALUES(7001, 1500, TO_DATE('10-01-2026','DD-MM-YYYY'), 3001, 5001);
+
+1 row created.
+
+SQL> INSERT INTO Orders_new VALUES(7002, 800, TO_DATE('12-01-2026','DD-MM-YYYY'), 3002, 5002);
+
+1 row created.
+
+SQL> INSERT INTO Orders_new VALUES(7003, 2500, TO_DATE('15-01-2026','DD-MM-YYYY'), 3003, 5001);
+
+1 row created.
+
+SQL> INSERT INTO Orders_new VALUES(7004, 1200, TO_DATE('18-01-2026','DD-MM-YYYY'), 3004, 5003);
+
+1 row created.
+
+SQL> INSERT INTO Orders_new VALUES(7005, 600, TO_DATE('20-01-2026','DD-MM-YYYY'), 3005, 5002);
+
+1 row created.
+
+SQL> INSERT INTO Orders_new VALUES(7006, 1800, TO_DATE('22-01-2026','DD-MM-YYYY'), 3006, 5001);
+
+1 row created.
+
+SQL> SELECT * FROM Orders_new;
+
+    ORD_NO  PURCH_AMT ORD_DATE  CUSTOMER_ID SALESMAN_ID                                                                                                                                                 
+---------- ---------- --------- ----------- -----------                                                                                                                                                 
+      7001       1500 10-JAN-26        3001        5001                                                                                                                                                 
+      7002        800 12-JAN-26        3002        5002                                                                                                                                                 
+      7003       2500 15-JAN-26        3003        5001                                                                                                                                                 
+      7004       1200 18-JAN-26        3004        5003                                                                                                                                                 
+      7005        600 20-JAN-26        3005        5002                                                                                                                                                 
+      7006       1800 22-JAN-26        3006        5001                                                                                                                                                 
+
+6 rows selected.
+
+SQL> --i)
+SQL> SELECT ord_date, salesman_id, ord_no, purch_amt
+  2  FROM Orders_new;
+
+ORD_DATE  SALESMAN_ID     ORD_NO  PURCH_AMT                                                                                                                                                             
+--------- ----------- ---------- ----------                                                                                                                                                             
+10-JAN-26        5001       7001       1500                                                                                                                                                             
+12-JAN-26        5002       7002        800                                                                                                                                                             
+15-JAN-26        5001       7003       2500                                                                                                                                                             
+18-JAN-26        5003       7004       1200                                                                                                                                                             
+20-JAN-26        5002       7005        600                                                                                                                                                             
+22-JAN-26        5001       7006       1800                                                                                                                                                             
+
+6 rows selected.
+
+SQL> --ii)
+SQL> SELECT DISTINCT salesman_id
+  2  FROM Orders_new;
+
+SALESMAN_ID                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+       5003                                                                                                                                                                                             
+       5001                                                                                                                                                                                             
+       5002                                                                                                                                                                                             
+
+SQL> --iii)
+SQL> SELECT ord_no, ord_date, purch_amt
+  2  FROM Orders_new
+  3  WHERE salesman_id = 5001;
+
+    ORD_NO ORD_DATE   PURCH_AMT                                                                                                                                                                         
+---------- --------- ----------                                                                                                                                                                         
+      7001 10-JAN-26       1500                                                                                                                                                                         
+      7003 15-JAN-26       2500                                                                                                                                                                         
+      7006 22-JAN-26       1800                                                                                                                                                                         
+
+SQL> --iv)
+SQL> SELECT *
+  2  FROM Orders_new
+  3  ORDER BY ord_no ASC;
+
+    ORD_NO  PURCH_AMT ORD_DATE  CUSTOMER_ID SALESMAN_ID                                                                                                                                                 
+---------- ---------- --------- ----------- -----------                                                                                                                                                 
+      7001       1500 10-JAN-26        3001        5001                                                                                                                                                 
+      7002        800 12-JAN-26        3002        5002                                                                                                                                                 
+      7003       2500 15-JAN-26        3003        5001                                                                                                                                                 
+      7004       1200 18-JAN-26        3004        5003                                                                                                                                                 
+      7005        600 20-JAN-26        3005        5002                                                                                                                                                 
+      7006       1800 22-JAN-26        3006        5001                                                                                                                                                 
+
+6 rows selected.
+
+SQL> --14 complete
+SQL> --15 start->
+SQL> CREATE TABLE Customer_new (
+  2      C_id NUMBER(5) PRIMARY KEY,
+  3      cname VARCHAR2(30),
+  4      city VARCHAR2(20),
+  5      grade NUMBER(5),
+  6      salesman_id NUMBER(5),
+  7      FOREIGN KEY (salesman_id) REFERENCES Salesman_new(Sid)
+  8  );
+    FOREIGN KEY (salesman_id) REFERENCES Salesman_new(Sid)
+                                         *
+ERROR at line 7:
+ORA-00942: table or view does not exist 
+
+
+SQL> CREATE TABLE Salesman_new (
+  2      Sid NUMBER(5) PRIMARY KEY,
+  3      name VARCHAR2(30),
+  4      city VARCHAR2(20),
+  5      commission NUMBER(5,2)
+  6  );
+
+Table created.
+
+SQL> CREATE TABLE Customer_new (
+  2      C_id NUMBER(5) PRIMARY KEY,
+  3      cname VARCHAR2(30),
+  4      city VARCHAR2(20),
+  5      grade NUMBER(5),
+  6      salesman_id NUMBER(5),
+  7      FOREIGN KEY (salesman_id) REFERENCES Salesman_new(Sid)
+  8  );
+
+Table created.
+
+SQL> INSERT INTO Salesman_new VALUES (5001, 'James', 'New York', 0.15);
+
+1 row created.
+
+SQL> INSERT INTO Salesman_new VALUES (5002, 'Nail', 'Paris', 0.13);
+
+1 row created.
+
+SQL> INSERT INTO Salesman_new VALUES (5003, 'Paul', 'London', 0.12);
+
+1 row created.
+
+SQL> INSERT INTO Salesman_new VALUES (5004, 'Mark', 'London', 0.14);
+
+1 row created.
+
+SQL> INSERT INTO Salesman_new VALUES (5005, 'John', 'Paris', 0.11);
+
+1 row created.
+
+SQL> select * from Salesman_new;
+
+       SID NAME                           CITY                 COMMISSION                                                                                                                               
+---------- ------------------------------ -------------------- ----------                                                                                                                               
+      5001 James                          New York                    .15                                                                                                                               
+      5002 Nail                           Paris                       .13                                                                                                                               
+      5003 Paul                           London                      .12                                                                                                                               
+      5004 Mark                           London                      .14                                                                                                                               
+      5005 John                           Paris                       .11                                                                                                                               
+
+SQL> INSERT INTO Customer_new VALUES (3001, 'Brad', 'New York', 100, 5001);
+
+1 row created.
+
+SQL> INSERT INTO Customer_new VALUES (3002, 'Nick', 'Paris', 200, 5002);
+
+1 row created.
+
+SQL> INSERT INTO Customer_new VALUES (3003, 'Graham', 'London', 300, 5003);
+
+1 row created.
+
+SQL> INSERT INTO Customer_new VALUES (3004, 'Fabian', 'Paris', 200, 5004);
+
+1 row created.
+
+SQL> INSERT INTO Customer_new VALUES (3005, 'Jerry', 'London', 150, 5003);
+
+1 row created.
+
+SQL> INSERT INTO Customer_new VALUES (3006, 'William', 'New York', 250, 5001);
+
+1 row created.
+
+SQL> select * from Customer_new;
+
+      C_ID CNAME                          CITY                      GRADE SALESMAN_ID                                                                                                                   
+---------- ------------------------------ -------------------- ---------- -----------                                                                                                                   
+      3001 Brad                           New York                    100        5001                                                                                                                   
+      3002 Nick                           Paris                       200        5002                                                                                                                   
+      3003 Graham                         London                      300        5003                                                                                                                   
+      3004 Fabian                         Paris                       200        5004                                                                                                                   
+      3005 Jerry                          London                      150        5003                                                                                                                   
+      3006 William                        New York                    250        5001                                                                                                                   
+
+6 rows selected.
+
+SQL> --i)
+SQL> SELECT *
+  2  FROM Customer_new
+  3  WHERE grade = 200;
+
+      C_ID CNAME                          CITY                      GRADE SALESMAN_ID                                                                                                                   
+---------- ------------------------------ -------------------- ---------- -----------                                                                                                                   
+      3002 Nick                           Paris                       200        5002                                                                                                                   
+      3004 Fabian                         Paris                       200        5004                                                                                                                   
+
+SQL> --ii)
+SQL> SELECT *
+  2  FROM Customer_new
+  3  WHERE grade > 100;
+
+      C_ID CNAME                          CITY                      GRADE SALESMAN_ID                                                                                                                   
+---------- ------------------------------ -------------------- ---------- -----------                                                                                                                   
+      3002 Nick                           Paris                       200        5002                                                                                                                   
+      3003 Graham                         London                      300        5003                                                                                                                   
+      3004 Fabian                         Paris                       200        5004                                                                                                                   
+      3005 Jerry                          London                      150        5003                                                                                                                   
+      3006 William                        New York                    250        5001                                                                                                                   
+
+SQL> --iii)
+SQL> SELECT *
+  2  FROM Customer_new
+  3  WHERE city = 'New York'
+  4  AND grade > 100;
+
+      C_ID CNAME                          CITY                      GRADE SALESMAN_ID                                                                                                                   
+---------- ------------------------------ -------------------- ---------- -----------                                                                                                                   
+      3006 William                        New York                    250        5001                                                                                                                   
+
+SQL> --iv)
+SQL> SELECT *
+  2  FROM Customer_new
+  3  WHERE city = 'New York'
+  4  OR grade > 100;
+
+      C_ID CNAME                          CITY                      GRADE SALESMAN_ID                                                                                                                   
+---------- ------------------------------ -------------------- ---------- -----------                                                                                                                   
+      3001 Brad                           New York                    100        5001                                                                                                                   
+      3002 Nick                           Paris                       200        5002                                                                                                                   
+      3003 Graham                         London                      300        5003                                                                                                                   
+      3004 Fabian                         Paris                       200        5004                                                                                                                   
+      3005 Jerry                          London                      150        5003                                                                                                                   
+      3006 William                        New York                    250        5001                                                                                                                   
+
+6 rows selected.
+
+SQL> --v)
+SQL> SELECT cname, city, grade
+  2  FROM Customer_new
+  3  ORDER BY grade DESC;
+
+CNAME                          CITY                      GRADE                                                                                                                                          
+------------------------------ -------------------- ----------                                                                                                                                          
+Graham                         London                      300                                                                                                                                          
+William                        New York                    250                                                                                                                                          
+Nick                           Paris                       200                                                                                                                                          
+Fabian                         Paris                       200                                                                                                                                          
+Jerry                          London                      150                                                                                                                                          
+Brad                           New York                    100                                                                                                                                          
+
+6 rows selected.
+
+SQL> --vi)
+SQL> SELECT c.cname AS customer_name,
+  2         s.name AS salesman_name
+  3  FROM Customer_new c
+  4  JOIN Salesman_new s
+  5  ON c.salesman_id = s.Sid
+  6  WHERE c.city = s.city;
+
+CUSTOMER_NAME                  SALESMAN_NAME                                                                                                                                                            
+------------------------------ ------------------------------                                                                                                                                           
+Brad                           James                                                                                                                                                                    
+Nick                           Nail                                                                                                                                                                     
+Graham                         Paul                                                                                                                                                                     
+Jerry                          Paul                                                                                                                                                                     
+William                        James                                                                                                                                                                    
+
+SQL> --15 complete
+SQL> --16 start->
+SQL> CREATE TABLE Salesman_new2 (
+  2      Sid NUMBER(5) PRIMARY KEY,
+  3      name VARCHAR2(30),
+  4      city VARCHAR2(20),
+  5      commission NUMBER(5,2)
+  6  );
+
+Table created.
+
+SQL> CREATE TABLE Customer_new2 (
+  2      C_id NUMBER(5) PRIMARY KEY,
+  3      cname VARCHAR2(30),
+  4      city VARCHAR2(20),
+  5      grade NUMBER(5),
+  6      salesman_id NUMBER(5),
+  7      FOREIGN KEY (salesman_id) REFERENCES Salesman_new2(Sid)
+  8  );
+
+Table created.
+
+SQL> INSERT INTO Salesman_new2 VALUES (5001, 'James', 'New York', 0.15);
+
+1 row created.
+
+SQL> INSERT INTO Salesman_new2 VALUES (5002, 'Nail', 'Paris', 0.13);
+
+1 row created.
+
+SQL> INSERT INTO Salesman_new2 VALUES (5003, 'Paul', 'London', 0.12);
+
+1 row created.
+
+SQL> INSERT INTO Salesman_new2 VALUES (5004, 'Mark', 'London', 0.14);
+
+1 row created.
+
+SQL> INSERT INTO Salesman_new2 VALUES (5005, 'John', 'Paris', 0.11);
+
+1 row created.
+
+SQL> select * from Salesman_new2;
+
+       SID NAME                           CITY                 COMMISSION                                                                                                                               
+---------- ------------------------------ -------------------- ----------                                                                                                                               
+      5001 James                          New York                    .15                                                                                                                               
+      5002 Nail                           Paris                       .13                                                                                                                               
+      5003 Paul                           London                      .12                                                                                                                               
+      5004 Mark                           London                      .14                                                                                                                               
+      5005 John                           Paris                       .11                                                                                                                               
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 
