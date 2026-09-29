@@ -1,0 +1,155 @@
+INSERT INTO Customer_new2 VALUES (3001, 'Brad', 'New York', 100, 5001);
+
+1 row created.
+
+SQL> INSERT INTO Customer_new2 VALUES (3002, 'Nick', 'Paris', 200, 5002);
+
+1 row created.
+
+SQL> INSERT INTO Customer_new2 VALUES (3003, 'Graham', 'London', 300, 5003);
+
+1 row created.
+
+SQL> INSERT INTO Customer_new2 VALUES (3004, 'Fabian', 'Paris', 200, 5004);
+
+1 row created.
+
+SQL> INSERT INTO Customer_new2 VALUES (3005, 'Jerry', 'London', 150, 5003);
+
+1 row created.
+
+SQL> INSERT INTO Customer_new2 VALUES (3006, 'William', 'New York', 250, 5001);
+
+1 row created.
+
+SQL> select * from Customer_new2;
+
+      C_ID CNAME                          CITY                      GRADE       
+---------- ------------------------------ -------------------- ----------       
+SALESMAN_ID                                                                     
+-----------                                                                     
+      3001 Brad                           New York                    100       
+       5001                                                                     
+                                                                                
+      3002 Nick                           Paris                       200       
+       5002                                                                     
+                                                                                
+      3003 Graham                         London                      300       
+       5003                                                                     
+                                                                                
+
+      C_ID CNAME                          CITY                      GRADE       
+---------- ------------------------------ -------------------- ----------       
+SALESMAN_ID                                                                     
+-----------                                                                     
+      3004 Fabian                         Paris                       200       
+       5004                                                                     
+                                                                                
+      3005 Jerry                          London                      150       
+       5003                                                                     
+                                                                                
+      3006 William                        New York                    250       
+       5001                                                                     
+                                                                                
+
+6 rows selected.
+
+SQL> set linesize 200;
+SQL> select * from Customer_new2;
+
+      C_ID CNAME                          CITY                      GRADE SALESMAN_ID                                                                                                                   
+---------- ------------------------------ -------------------- ---------- -----------                                                                                                                   
+      3001 Brad                           New York                    100        5001                                                                                                                   
+      3002 Nick                           Paris                       200        5002                                                                                                                   
+      3003 Graham                         London                      300        5003                                                                                                                   
+      3004 Fabian                         Paris                       200        5004                                                                                                                   
+      3005 Jerry                          London                      150        5003                                                                                                                   
+      3006 William                        New York                    250        5001                                                                                                                   
+
+6 rows selected.
+
+SQL> --i)
+SQL> SELECT c.cname AS customer_name,
+  2         s.name AS salesman_name
+  3  FROM Customer_new2 c
+  4  JOIN Salesman_new2 s
+  5  ON c.salesman_id = s.Sid;
+
+CUSTOMER_NAME                  SALESMAN_NAME                                                                                                                                                            
+------------------------------ ------------------------------                                                                                                                                           
+Brad                           James                                                                                                                                                                    
+Nick                           Nail                                                                                                                                                                     
+Graham                         Paul                                                                                                                                                                     
+Fabian                         Mark                                                                                                                                                                     
+Jerry                          Paul                                                                                                                                                                     
+William                        James                                                                                                                                                                    
+
+6 rows selected.
+
+SQL> --ii)
+SQL> SELECT name AS person_name
+  2  FROM Salesman_new2
+  3  WHERE city = 'London'
+  4  
+SQL> UNION
+SP2-0042: unknown command "UNION" - rest of line ignored.
+SQL> 
+SQL> SELECT cname AS person_name
+  2  FROM Customer_new2
+  3  WHERE city = 'London';
+
+PERSON_NAME                                                                                                                                                                                             
+------------------------------                                                                                                                                                                          
+Graham                                                                                                                                                                                                  
+Jerry                                                                                                                                                                                                   
+
+SQL> SELECT name AS person_name
+  2  FROM Salesman_new2
+  3  WHERE city = 'London'
+  4  
+SQL> UNION
+SP2-0042: unknown command "UNION" - rest of line ignored.
+SQL> 
+SQL> SELECT cname AS person_name
+  2  FROM Customer_new2
+  3  WHERE city = 'London';
+
+PERSON_NAME                                                                                                                                                                                             
+------------------------------                                                                                                                                                                          
+Graham                                                                                                                                                                                                  
+Jerry                                                                                                                                                                                                   
+
+SQL> SELECT name AS person_name
+  2  FROM Salesman_new2
+  3  WHERE city = 'London'
+  4  UNION
+  5  SELECT cname AS person_name
+  6  FROM Customer_new2
+  7  WHERE city = 'London';
+
+PERSON_NAME                                                                                                                                                                                             
+------------------------------                                                                                                                                                                          
+Graham                                                                                                                                                                                                  
+Jerry                                                                                                                                                                                                   
+Mark                                                                                                                                                                                                    
+Paul                                                                                                                                                                                                    
+
+SQL> --iii)
+SQL> SELECT name AS salesman_name,
+  2         city
+  3  FROM Salesman_new2;
+
+SALESMAN_NAME                  CITY                                                                                                                                                                     
+------------------------------ --------------------                                                                                                                                                     
+James                          New York                                                                                                                                                                 
+Nail                           Paris                                                                                                                                                                    
+Paul                           London                                                                                                                                                                   
+Mark                           London                                                                                                                                                                   
+John                           Paris                                                                                                                                                                    
+
+SQL> --16 complete
+SQL> commit;
+
+Commit complete.
+
+SQL> 
