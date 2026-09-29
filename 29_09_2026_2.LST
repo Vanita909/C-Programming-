@@ -1,0 +1,298 @@
+CREATE TABLE emp_details_new (
+  2      Emp_no NUMBER(5) PRIMARY KEY,
+  3      fname VARCHAR2(30),
+  4      lname VARCHAR2(30),
+  5      emp_dept NUMBER(5)
+  6  );
+
+Table created.
+
+SQL> INSERT INTO emp_details_new VALUES (101, 'Rahul', 'Patel', 57);
+
+1 row created.
+
+SQL> INSERT INTO emp_details_new VALUES (102, 'Amit', 'Doshi', 58);
+
+1 row created.
+
+SQL> INSERT INTO emp_details_new VALUES (103, 'Priya', 'Joshi', 57);
+
+1 row created.
+
+SQL> INSERT INTO emp_details_new VALUES (104, 'Neha', 'Patel', 59);
+
+1 row created.
+
+SQL> INSERT INTO emp_details_new VALUES (105, 'Karan', 'Doshi', 57);
+
+1 row created.
+
+SQL> INSERT INTO emp_details_new VALUES (106, 'Ravi', 'Shah', 60);
+
+1 row created.
+
+SQL> INSERT INTO emp_details_new VALUES (107, 'Pooja', 'Joshi', 58);
+
+1 row created.
+
+SQL> SELECT * FROM emp_details_new;
+
+    EMP_NO FNAME                          LNAME                                 
+---------- ------------------------------ ------------------------------        
+  EMP_DEPT                                                                      
+----------                                                                      
+       101 Rahul                          Patel                                 
+        57                                                                      
+                                                                                
+       102 Amit                           Doshi                                 
+        58                                                                      
+                                                                                
+       103 Priya                          Joshi                                 
+        57                                                                      
+                                                                                
+
+    EMP_NO FNAME                          LNAME                                 
+---------- ------------------------------ ------------------------------        
+  EMP_DEPT                                                                      
+----------                                                                      
+       104 Neha                           Patel                                 
+        59                                                                      
+                                                                                
+       105 Karan                          Doshi                                 
+        57                                                                      
+                                                                                
+       106 Ravi                           Shah                                  
+        60                                                                      
+                                                                                
+
+    EMP_NO FNAME                          LNAME                                 
+---------- ------------------------------ ------------------------------        
+  EMP_DEPT                                                                      
+----------                                                                      
+       107 Pooja                          Joshi                                 
+        58                                                                      
+                                                                                
+
+7 rows selected.
+
+SQL> set linesize 200;
+SQL> SELECT * FROM emp_details_new;
+
+    EMP_NO FNAME                          LNAME                            EMP_DEPT                                                                                                                     
+---------- ------------------------------ ------------------------------ ----------                                                                                                                     
+       101 Rahul                          Patel                                  57                                                                                                                     
+       102 Amit                           Doshi                                  58                                                                                                                     
+       103 Priya                          Joshi                                  57                                                                                                                     
+       104 Neha                           Patel                                  59                                                                                                                     
+       105 Karan                          Doshi                                  57                                                                                                                     
+       106 Ravi                           Shah                                   60                                                                                                                     
+       107 Pooja                          Joshi                                  58                                                                                                                     
+
+7 rows selected.
+
+SQL> --i)
+SQL> SELECT DISTINCT lname
+  2  FROM emp_details_new;
+
+LNAME                                                                                                                                                                                                   
+------------------------------                                                                                                                                                                          
+Patel                                                                                                                                                                                                   
+Joshi                                                                                                                                                                                                   
+Shah                                                                                                                                                                                                    
+Doshi                                                                                                                                                                                                   
+
+SQL> --ii)
+SQL> SELECT *
+  2  FROM emp_details_new
+  3  WHERE emp_dept = 57;
+
+    EMP_NO FNAME                          LNAME                            EMP_DEPT                                                                                                                     
+---------- ------------------------------ ------------------------------ ----------                                                                                                                     
+       101 Rahul                          Patel                                  57                                                                                                                     
+       103 Priya                          Joshi                                  57                                                                                                                     
+       105 Karan                          Doshi                                  57                                                                                                                     
+
+SQL> --iii)
+SQL> SELECT *
+  2  FROM emp_details_new
+  3  WHERE lname = 'Doshi'
+  4     OR lname = 'Joshi';
+
+    EMP_NO FNAME                          LNAME                            EMP_DEPT                                                                                                                     
+---------- ------------------------------ ------------------------------ ----------                                                                                                                     
+       102 Amit                           Doshi                                  58                                                                                                                     
+       103 Priya                          Joshi                                  57                                                                                                                     
+       105 Karan                          Doshi                                  57                                                                                                                     
+       107 Pooja                          Joshi                                  58                                                                                                                     
+
+SQL> --17 complete
+SQL> --18 start
+SQL> CREATE TABLE Company_master_new (
+  2      Com_id NUMBER(5) PRIMARY KEY,
+  3      com_name VARCHAR2(30)
+  4  );
+
+Table created.
+
+SQL> CREATE TABLE Item_Master_new (
+  2      Item_id NUMBER(5) PRIMARY KEY,
+  3      Item_name VARCHAR2(30),
+  4      price NUMBER(10,2),
+  5      company_code NUMBER(5),
+  6      FOREIGN KEY (company_code) REFERENCES Company_master_new(Com_id)
+  7  );
+
+Table created.
+
+SQL> INSERT INTO Company_master_new VALUES (101, 'Samsung');
+
+1 row created.
+
+SQL> INSERT INTO Company_master_new VALUES (102, 'Apple');
+
+1 row created.
+
+SQL> INSERT INTO Company_master_new VALUES (103, 'Dell');
+
+1 row created.
+
+SQL> INSERT INTO Company_master_new VALUES (104, 'HP');
+
+1 row created.
+
+SQL> select * from Company_master_new;
+
+    COM_ID COM_NAME                                                                                                                                                                                     
+---------- ------------------------------                                                                                                                                                               
+       101 Samsung                                                                                                                                                                                      
+       102 Apple                                                                                                                                                                                        
+       103 Dell                                                                                                                                                                                         
+       104 HP                                                                                                                                                                                           
+
+SQL> INSERT INTO Item_Master_new VALUES (1, 'Mobile', 300, 101);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master_new VALUES (2, 'TV', 500, 101);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master_new VALUES (3, 'iPhone', 800, 102);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master_new VALUES (4, 'iPad', 600, 102);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master_new VALUES (5, 'Laptop', 700, 103);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master_new VALUES (6, 'Monitor', 300, 103);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master_new VALUES (7, 'Printer', 400, 104);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master_new VALUES (8, 'Keyboard', 200, 104);
+
+1 row created.
+
+SQL> select * from  Item_Master_new ;
+
+   ITEM_ID ITEM_NAME                           PRICE COMPANY_CODE                                                                                                                                       
+---------- ------------------------------ ---------- ------------                                                                                                                                       
+         1 Mobile                                300          101                                                                                                                                       
+         2 TV                                    500          101                                                                                                                                       
+         3 iPhone                                800          102                                                                                                                                       
+         4 iPad                                  600          102                                                                                                                                       
+         5 Laptop                                700          103                                                                                                                                       
+         6 Monitor                               300          103                                                                                                                                       
+         7 Printer                               400          104                                                                                                                                       
+         8 Keyboard                              200          104                                                                                                                                       
+
+8 rows selected.
+
+SQL> --i)
+SQL> SELECT i.Item_id,
+  2         i.Item_name,
+  3         i.price,
+  4         i.company_code,
+  5         c.com_name
+  6  FROM Item_Master_new i
+  7  JOIN Company_master_new c
+  8  ON i.company_code = c.Com_id;
+
+   ITEM_ID ITEM_NAME                           PRICE COMPANY_CODE COM_NAME                                                                                                                              
+---------- ------------------------------ ---------- ------------ ------------------------------                                                                                                        
+         1 Mobile                                300          101 Samsung                                                                                                                               
+         2 TV                                    500          101 Samsung                                                                                                                               
+         3 iPhone                                800          102 Apple                                                                                                                                 
+         4 iPad                                  600          102 Apple                                                                                                                                 
+         5 Laptop                                700          103 Dell                                                                                                                                  
+         6 Monitor                               300          103 Dell                                                                                                                                  
+         7 Printer                               400          104 HP                                                                                                                                    
+         8 Keyboard                              200          104 HP                                                                                                                                    
+
+8 rows selected.
+
+SQL> --ii)
+SQL> SELECT i.Item_name,
+  2         i.price,
+  3         c.com_name
+  4  FROM Item_Master_new i
+  5  JOIN Company_master_new c
+  6  ON i.company_code = c.Com_id;
+
+ITEM_NAME                           PRICE COM_NAME                                                                                                                                                      
+------------------------------ ---------- ------------------------------                                                                                                                                
+Mobile                                300 Samsung                                                                                                                                                       
+TV                                    500 Samsung                                                                                                                                                       
+iPhone                                800 Apple                                                                                                                                                         
+iPad                                  600 Apple                                                                                                                                                         
+Laptop                                700 Dell                                                                                                                                                          
+Monitor                               300 Dell                                                                                                                                                          
+Printer                               400 HP                                                                                                                                                            
+Keyboard                              200 HP                                                                                                                                                            
+
+8 rows selected.
+
+SQL> --iii)
+SQL> SELECT c.com_name,
+  2         AVG(i.price) AS average_price
+  3  FROM Company_master_new c
+  4  JOIN Item_Master_new i
+  5  ON c.Com_id = i.company_code
+  6  GROUP BY c.com_name;
+
+COM_NAME                       AVERAGE_PRICE                                                                                                                                                            
+------------------------------ -------------                                                                                                                                                            
+Samsung                                  400                                                                                                                                                            
+Apple                                    700                                                                                                                                                            
+Dell                                     500                                                                                                                                                            
+HP                                       300                                                                                                                                                            
+
+SQL> --iv)
+SQL> SELECT c.com_name,
+  2         AVG(i.price) AS average_price
+  3  FROM Company_master_new c
+  4  JOIN Item_Master_new i
+  5  ON c.Com_id = i.company_code
+  6  GROUP BY c.com_name
+  7  HAVING AVG(i.price) >= 350;
+
+COM_NAME                       AVERAGE_PRICE                                                                                                                                                            
+------------------------------ -------------                                                                                                                                                            
+Samsung                                  400                                                                                                                                                            
+Apple                                    700                                                                                                                                                            
+Dell                                     500                                                                                                                                                            
+
+SQL> --18 complete
+SQL> commit;
+
+Commit complete.
+
+SQL> 
